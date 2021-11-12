@@ -2,8 +2,11 @@ package model.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Customer {
@@ -13,37 +16,41 @@ public class Customer {
 	private String fn_ln;
 	private LocalDate dob;
 	private String phone;
-	private int address_id;
-	private String title;
+	private Address address;
+	private Affiliation affiliation;
 	
 	public Customer() {
 		
 	}
 	
-	public Customer(String bronco_id, String fn_ln, LocalDate dob, String phone, int address_id, String title) 
+	public Customer(String bronco_id, String fn_ln, LocalDate dob, String phone, Address address, Affiliation affiliation) 
 	{
 		this.setBronco_id(bronco_id);
 		this.setFn_ln(fn_ln);
 		this.setDob(dob);
 		this.setPhone(phone);
-		this.setAddress_id(address_id);
-		this.setTitle(title);
+		this.setAddress(address);
+		this.setAffiliation(affiliation);
+	}
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "title")
+	public Affiliation getAffiliation() {
+		return affiliation;
 	}
 
-	public String getTitle() {
-		return title;
+	public void setAffiliation(Affiliation affiliation) {
+		this.affiliation = affiliation;
+	}
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public int getAddress_id() {
-		return address_id;
-	}
-
-	public void setAddress_id(int address_id) {
-		this.address_id = address_id;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public String getPhone() {
