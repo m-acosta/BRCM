@@ -2,24 +2,27 @@ package resources;
 
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import model.dataccess.ActivityDataAccess;
+import model.dataccess.ActivityPriceDataAccess;
+import model.dataccess.ActivityPurchaseDataAccess;
 import model.dataccess.AddressDataAccess;
 import model.dataccess.AffiliationDataAccess;
 import model.dataccess.CustomerDataAccess;
-import model.dataccess.OrderActivityDataAccess;
-import model.dataccess.OrderDataAccess;
 import model.dataccess.ProfessorDataAccess;
+import model.dataccess.PurchaseDataAccess;
 import model.dataccess.StatusDataAccess;
 import model.dataccess.StudentDataAccess;
 import model.entities.Activity;
+import model.entities.ActivityPrice;
+import model.entities.ActivityPriceId;
+import model.entities.ActivityPurchase;
+import model.entities.ActivityPurchaseId;
 import model.entities.Address;
 import model.entities.Affiliation;
 import model.entities.Customer;
-import model.entities.Order;
-import model.entities.OrderActivity;
 import model.entities.Professor;
+import model.entities.Purchase;
 import model.entities.Status;
 import model.entities.Student;
 
@@ -89,27 +92,43 @@ public class Seed {
 		activityDa.saveActivity(activity_football);
 		activityDa.saveActivity(activity_basketball);
 		
-//		LocalDate order_date_1 = LocalDate.of(2021, 1, 15);
-//		@SuppressWarnings("deprecation")
-//		Time order_time_1 = new Time(0, 0, 0);
-//		
-//		LocalDate order_date_2 = LocalDate.of(2021, 1, 20);
-//		@SuppressWarnings("deprecation")
-//		Time order_time_2 = new Time(1, 1, 1);
+		LocalDate priceupdate1 = LocalDate.of(2009, 1, 14);
+		LocalDate priceupdate2 = LocalDate.of(2010, 1, 15);
+		ActivityPriceDataAccess acprDa = new ActivityPriceDataAccess();
+		ActivityPriceId basketball_pk = new ActivityPriceId(activity_basketball, priceupdate1);
+		ActivityPriceId football_pk = new ActivityPriceId(activity_football, priceupdate2);
+		ActivityPriceId soccer_pk = new ActivityPriceId(activity_soccer, priceupdate2);
 		
-//		OrderDataAccess orderDa = new OrderDataAccess();
-//		Order order1 = new Order(order_time_1, order_date_1, 544, status_online, student);
-//		Order order2 = new Order(order_time_2, order_date_2, 144, status_online_complete, student);
-//		orderDa.saveOrder(order1);
-//		orderDa.saveOrder(order2);
-//		
-//		
-//		OrderActivityDataAccess order_activityDa = new OrderActivityDataAccess();
-//		OrderActivity order_activity_1 = new OrderActivity();
-//		order_activity_1.setActivity(activity_soccer);
-//		order_activity_1.setOrder(order1);
-//		order_activity_1.setQuantity(3);
-//		order_activityDa.saveOrderActivity(order_activity_1);
+		ActivityPrice basketball = new ActivityPrice(basketball_pk, 10.50);
+		ActivityPrice football = new ActivityPrice(football_pk, 11.50);
+		ActivityPrice soccer = new ActivityPrice(soccer_pk, 12.50);
+		acprDa.saveActivityPrice(soccer);
+		acprDa.saveActivityPrice(football);
+		acprDa.saveActivityPrice(basketball);
+		
+		
+		LocalDate order_date_1 = LocalDate.of(2021, 1, 15);
+		@SuppressWarnings("deprecation")
+		Time order_time_1 = new Time(0, 0, 0);
+		
+		LocalDate order_date_2 = LocalDate.of(2021, 1, 20);
+		@SuppressWarnings("deprecation")
+		Time order_time_2 = new Time(1, 1, 1);
+		
+		PurchaseDataAccess orderDa = new PurchaseDataAccess();
+		Purchase order1 = new Purchase(order_time_1, order_date_1, 544.00, status_online, student);
+		Purchase order2 = new Purchase(order_time_2, order_date_2, 144.00, status_online_complete, student);
+		orderDa.savePurchase(order1);
+		orderDa.savePurchase(order2);
+		
+		ActivityPurchaseDataAccess order_activityDa = new ActivityPurchaseDataAccess();
+		ActivityPurchaseId order_activity_1_pk = new ActivityPurchaseId(order1, activity_basketball);
+		ActivityPurchase order_activity_1 = new ActivityPurchase(order_activity_1_pk, 5);
+		order_activityDa.saveActivityPurchase(order_activity_1);
+		
+		ActivityPurchaseId order_activity_2_pk = new ActivityPurchaseId(order1, activity_soccer);
+		ActivityPurchase order_activity_2 = new ActivityPurchase(order_activity_2_pk, 3);
+		order_activityDa.saveActivityPurchase(order_activity_2);
 		
 		
 	}

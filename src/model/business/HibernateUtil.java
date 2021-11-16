@@ -9,12 +9,13 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
 import model.entities.Activity;
+import model.entities.ActivityPrice;
+import model.entities.ActivityPurchase;
 import model.entities.Address;
 import model.entities.Affiliation;
 import model.entities.Customer;
-import model.entities.Order;
-import model.entities.OrderActivity;
 import model.entities.Professor;
+import model.entities.Purchase;
 import model.entities.Status;
 import model.entities.Student;
 
@@ -27,7 +28,7 @@ public class HibernateUtil {
 			try {
 				Properties settings = new Properties();
 				settings.put(Environment.DRIVER, "org.postgresql.Driver");
-				settings.put(Environment.URL, "jdbc:postgresql://localhost:5433/brcm_db");
+				settings.put(Environment.URL, "jdbc:postgresql://localhost:5433/brcm_database");
 				settings.put(Environment.USER, "postgres");
 				settings.put(Environment.PASS, "password");
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
@@ -42,8 +43,9 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(Student.class);
 				configuration.addAnnotatedClass(Status.class);
 				configuration.addAnnotatedClass(Activity.class);
-				//configuration.addAnnotatedClass(Order.class);
-				//configuration.addAnnotatedClass(OrderActivity.class);
+				configuration.addAnnotatedClass(ActivityPrice.class);
+				configuration.addAnnotatedClass(Purchase.class);
+				configuration.addAnnotatedClass(ActivityPurchase.class);
 			
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 				

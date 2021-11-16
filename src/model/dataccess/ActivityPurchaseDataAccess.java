@@ -5,17 +5,18 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import model.entities.Order;
+import model.entities.ActivityPurchase;
+import model.entities.ActivityPurchaseId;
 import resources.HibernateUtil;
 
-public class OrderDataAccess {
-	public void saveOrder(Order order)
+public class ActivityPurchaseDataAccess {
+	public void saveActivityPurchase(ActivityPurchase activity_purchase)
 	{
 		Transaction transaction = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			session.save(order);
+			session.save(activity_purchase);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -27,13 +28,13 @@ public class OrderDataAccess {
 		}
 	}
 	
-	public void updateOrder(Order order)
+	public void updateActivityPurchase(ActivityPurchase activity_purchase)
 	{
 		Transaction transaction = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(order);
+			session.saveOrUpdate(activity_purchase);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -45,14 +46,14 @@ public class OrderDataAccess {
 		}
 	}
 	
-	public Order getOrderById(int order_id)
+	public ActivityPurchase getActivityPurchaseById(ActivityPurchaseId primary_key)
 	{
 		Transaction transaction = null;
-		Order order = null;
+		ActivityPurchase activity_purchase = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			order = session.get(Order.class, order_id);
+			activity_purchase = session.get(ActivityPurchase.class, primary_key);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -62,17 +63,17 @@ public class OrderDataAccess {
 				transaction.rollback();
 			}
 		}
-		return order;
+		return activity_purchase;
 	}
 	
-	public List<Order> getAllOrders()
+	public List<ActivityPurchase> getAllActivityPurchases()
 	{
 		Transaction transaction = null;
-		List<Order> orders = null;
+		List<ActivityPurchase> activity_purchases = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			orders = session.createQuery("from order_receipt").list();
+			activity_purchases = session.createQuery("from activity_purchase").list();
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -82,18 +83,18 @@ public class OrderDataAccess {
 				transaction.rollback();
 			}
 		}
-		return orders;
+		return activity_purchases;
 	}
 
-	public Order deleteOrder(int order_id)
+	public ActivityPurchase deleteActivityPurchase(ActivityPurchaseId primary_key)
 	{
 		Transaction transaction = null;
-		Order order = null;
+		ActivityPurchase activity_purchase = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			order = session.get(Order.class, order_id);
-			session.delete(order);
+			activity_purchase = session.get(ActivityPurchase.class, primary_key);
+			session.delete(activity_purchase);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -103,7 +104,7 @@ public class OrderDataAccess {
 				transaction.rollback();
 			}
 		}
-		return order;
+		return activity_purchase;
 	}
 
 }

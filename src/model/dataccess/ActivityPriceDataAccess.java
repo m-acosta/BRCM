@@ -5,18 +5,18 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import model.entities.OrderActivity;
-import model.entities.OrderActivityId;
+import model.entities.ActivityPrice;
+import model.entities.ActivityPriceId;
 import resources.HibernateUtil;
 
-public class OrderActivityDataAccess {
-	public void saveOrderActivity(OrderActivity order_activity)
+public class ActivityPriceDataAccess {
+	public void saveActivityPrice(ActivityPrice activity_price)
 	{
 		Transaction transaction = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			session.save(order_activity);
+			session.save(activity_price);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -28,13 +28,13 @@ public class OrderActivityDataAccess {
 		}
 	}
 	
-	public void updateOrderActivity(OrderActivity order_activity)
+	public void updateActivityPrice(ActivityPrice activity_price)
 	{
 		Transaction transaction = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(order_activity);
+			session.saveOrUpdate(activity_price);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -46,14 +46,14 @@ public class OrderActivityDataAccess {
 		}
 	}
 	
-	public OrderActivity getOrderActivityById(OrderActivityId order_id_name)
+	public ActivityPrice getActivityPriceById(ActivityPriceId primary_key)
 	{
 		Transaction transaction = null;
-		OrderActivity order_activity = null;
+		ActivityPrice activity_price = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			order_activity = session.get(OrderActivity.class, order_id_name);
+			activity_price = session.get(ActivityPrice.class, primary_key);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -63,17 +63,17 @@ public class OrderActivityDataAccess {
 				transaction.rollback();
 			}
 		}
-		return order_activity;
+		return activity_price;
 	}
 	
-	public List<OrderActivity> getAllOrderActivities()
+	public List<ActivityPrice> getAllActivityPrices()
 	{
 		Transaction transaction = null;
-		List<OrderActivity> order_activities = null;
+		List<ActivityPrice> activity_prices = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			order_activities = session.createQuery("from order_item").list();
+			activity_prices = session.createQuery("from activity_price").list();
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -83,18 +83,18 @@ public class OrderActivityDataAccess {
 				transaction.rollback();
 			}
 		}
-		return order_activities;
+		return activity_prices;
 	}
 
-	public OrderActivity deleteOrderActivity(OrderActivityId order_id_name)
+	public ActivityPrice deleteActivityPrice(ActivityPriceId primary_key)
 	{
 		Transaction transaction = null;
-		OrderActivity order_activity = null;
+		ActivityPrice activity_price = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			order_activity = session.get(OrderActivity.class, order_id_name);
-			session.delete(order_activity);
+			activity_price = session.get(ActivityPrice.class, primary_key);
+			session.delete(activity_price);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -104,7 +104,6 @@ public class OrderActivityDataAccess {
 				transaction.rollback();
 			}
 		}
-		return order_activity;
+		return activity_price;
 	}
-
 }

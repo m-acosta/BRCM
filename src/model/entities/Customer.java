@@ -41,8 +41,8 @@ public class Customer {
     @PrimaryKeyJoinColumn
 	private Professor professor;
 	
-//	@OneToMany(mappedBy="order_receipt")
-//	private Set<Order> orders = new HashSet<Order>();
+	@OneToMany(mappedBy="customer")
+	private Set<Purchase> purchases = new HashSet<Purchase>();
 	
 	public Customer() {
 		
@@ -58,19 +58,19 @@ public class Customer {
 		this.setAffiliation(affiliation);
 	}
 	
-//	public Set<Order> getOrders()
+//	public Set<Purchase> getPurchases()
 //	{
-//		return this.orders;
+//		return this.purchases;
 //	}
 //	
-//	public void setOrder(Set<Order> orders)
+//	public void setPurchase(Set<Purchase> purchases)
 //	{
-//		this.orders = orders;
+//		this.purchases = purchases;
 //	}
 //	
-//	public void addOrder(Order order)
+//	public void addPurchase(Purchase purchase)
 //	{
-//		this.orders.add(order);
+//		this.purchases.add(purchase);
 //	}
 	
 	public Student getStudent() {

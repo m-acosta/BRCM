@@ -9,38 +9,46 @@ import javax.persistence.Transient;
 import javax.persistence.JoinColumn;
 
 @Entity
-@Table(name = "order_item")
+@Table(name = "activity_purchase")
 @AssociationOverrides({
-	@AssociationOverride(name = "primaryKey.order_item",
-		joinColumns = @JoinColumn(name = "order_id")),
-	@AssociationOverride(name = "primaryKey.activity",
+	@AssociationOverride(name = "purchase",
+		joinColumns = @JoinColumn(name = "purchase_id")),
+	@AssociationOverride(name = "activity",
 		joinColumns = @JoinColumn(name = "name")) })
-public class OrderActivity 
+public class ActivityPurchase 
 {
-	private OrderActivityId primary_key = new OrderActivityId();
+	private ActivityPurchaseId primary_key = new ActivityPurchaseId();
 	
 	private int quantity;
 	
+	public ActivityPurchase() {}
+	
+	public ActivityPurchase(ActivityPurchaseId primary_key, int quantity)
+	{
+		this.setPrimaryKey(primary_key);
+		this.setQuantity(quantity);
+	}
+	
 	@EmbeddedId
-	public OrderActivityId getPrimaryKey()
+	public ActivityPurchaseId getPrimaryKey()
 	{
 		return this.primary_key;
 	}
 	
-	public void setPrimaryKey(OrderActivityId primary_key)
+	public void setPrimaryKey(ActivityPurchaseId primary_key)
 	{
 		this.primary_key = primary_key;
 	}
 	
 	@Transient
-	public Order getOrder()
+	public Purchase getPurchase()
 	{
-		return this.getPrimaryKey().getOrder();
+		return this.getPrimaryKey().getPurchase();
 	}
 	
-	public void setOrder(Order order)
+	public void setPurchase(Purchase order)
 	{
-		this.getPrimaryKey().setOrder(order);
+		this.getPrimaryKey().setPurchase(order);
 	}
 	
 	@Transient

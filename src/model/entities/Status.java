@@ -14,10 +14,10 @@ public class Status
 	@Id
 	private String label;
 	
-//	@OneToOne
-//	@JoinColumn(name = "label")
-//	private Order order;
-//	
+	@OneToOne
+	@JoinColumn(name = "label")
+	private Purchase purchase;
+	
 	public Status() {}
 	
 	public Status(String label)
@@ -25,15 +25,15 @@ public class Status
 		this.setStatus(label);
 	}
 	
-//	public Order getOrder()
-//	{
-//		return this.order;
-//	}
-//	
-//	public void setOrder(Order order)
-//	{
-//		this.order = order;
-//	}
+	public Purchase getPurchase()
+	{
+		return this.purchase;
+	}
+	
+	public void setPurchase(Purchase purchase)
+	{
+		this.purchase = purchase;
+	}
 	
 	public void setStatus(String label)
 	{

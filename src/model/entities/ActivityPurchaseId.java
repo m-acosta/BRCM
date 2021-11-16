@@ -7,24 +7,34 @@ import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-public class OrderActivityId implements Serializable
+public class ActivityPurchaseId implements Serializable
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3908983137643904474L;
-	private Order order;
+	
+	private Purchase purchase;
 	private Activity activity;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	public Order getOrder()
+	public ActivityPurchaseId() {}
+	
+	public ActivityPurchaseId(Purchase purchase, Activity activity)
 	{
-		return this.order;
+		this.setPurchase(purchase);
+		this.setActivity(activity);
 	}
 	
-	public void setOrder(Order order)
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	public Purchase getPurchase()
 	{
-		this.order = order;
+		return this.purchase;
+	}
+	
+	public void setPurchase(Purchase purchase)
+	{
+		this.purchase = purchase;
 	}
 	
 	@ManyToOne(cascade = CascadeType.ALL)

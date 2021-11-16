@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,28 +14,34 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
-@Table(name = "order_receipt")
-public class Order 
+@Table(name = "purchase")
+public class Purchase 
 {
-	private int order_id;
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private int purchase_id;
 	private Time time;
 	private LocalDate date;
-	private int total_price;
+	private double total_price;
 	
-	@OneToOne(mappedBy="order_receipt")
+	@OneToOne(mappedBy="purchase")
 	private Status status;
 	
 	@ManyToOne
     @JoinColumn(name="bronco_id", nullable=false)	
 	private Customer customer;
 	
-	private Set<OrderActivity> order_activities = new HashSet<OrderActivity>();
+	@OneToMany
+	@JoinColumn
+	@Transient
+	private Set<ActivityPurchase> activity_purchases = new HashSet<ActivityPurchase>();
 	
-	public Order() {}
+	public Purchase() {}
 	
-	public Order(Time time, LocalDate date, int total_price, Status status, Customer customer)
+	public Purchase(Time time, LocalDate date, double total_price, Status status, Customer customer)
 	{
 		this.setTime(time);
 		this.setDate(date);
@@ -46,28 +50,24 @@ public class Order
 		this.setCustomer(customer);
 	}
 	
-	@OneToMany(mappedBy = "primaryKey.order_item", cascade = CascadeType.ALL)
-	public Set<OrderActivity> getOrderActivities() 
+	public Set<ActivityPurchase> getActivityPurchases() 
 	{
-	    return this.order_activities;
+	    return this.activity_purchases;
 	}
 	
-	public void setOrderActivity(Set<OrderActivity> order_activities) 
+	public void setActivityPurchase(Set<ActivityPurchase> activity_purchases) 
 	{
-	    this.order_activities = order_activities;
+	    this.activity_purchases = activity_purchases;
 	}
 	
-	public void addOrderActivity(OrderActivity order_activity)
+	public void addActivityPurchase(ActivityPurchase activity_purchase)
 	{
-		this.order_activities.add(order_activity);
+		this.activity_purchases.add(activity_purchase);
 	}
 	
-	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column(name = "order_id")
-	public int getOrderId()
+	public int getPurchaseId()
 	{
-		return this.order_id;
+		return this.purchase_id;
 	}
 
 	public Time getTime() {
@@ -86,11 +86,11 @@ public class Order
 		this.date = date;
 	}
 
-	public int getTotal_price() {
+	public double getTotal_price() {
 		return total_price;
 	}
 
-	public void setTotal_price(int total_price) {
+	public void setTotal_price(double total_price) {
 		this.total_price = total_price;
 	}
 
@@ -109,6 +109,4 @@ public class Order
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	
-
 }
