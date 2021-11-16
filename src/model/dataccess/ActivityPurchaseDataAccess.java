@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 import model.entities.ActivityPurchase;
 import model.entities.ActivityPurchaseId;
-import resources.HibernateUtil;
+import model.business.HibernateUtil;
 
 public class ActivityPurchaseDataAccess {
 	public void saveActivityPurchase(ActivityPurchase activity_purchase)

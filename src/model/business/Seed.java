@@ -1,4 +1,4 @@
-package resources;
+package model.business;
 
 import java.sql.Time;
 import java.time.LocalDate;

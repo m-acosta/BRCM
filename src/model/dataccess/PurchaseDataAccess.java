@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import model.entities.Purchase;
-import resources.HibernateUtil;
+import model.business.HibernateUtil;
 
 public class PurchaseDataAccess {
 	public void savePurchase(Purchase purchase)

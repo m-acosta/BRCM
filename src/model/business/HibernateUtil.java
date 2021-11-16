@@ -1,4 +1,4 @@
-package resources;
+package model.business;
 
 import java.util.Properties;
 

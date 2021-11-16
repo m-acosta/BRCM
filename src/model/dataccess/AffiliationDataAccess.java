@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import model.entities.Affiliation;
-import resources.HibernateUtil;
+import model.business.HibernateUtil;
 
 public class AffiliationDataAccess 
 {

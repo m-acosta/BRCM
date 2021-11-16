@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 import model.entities.ActivityPrice;
 import model.entities.ActivityPriceId;
-import resources.HibernateUtil;
+import model.business.HibernateUtil;
 
 public class ActivityPriceDataAccess {
 	public void saveActivityPrice(ActivityPrice activity_price)
