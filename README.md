@@ -3,7 +3,7 @@ Bronco Recreation Complex Management system by Team 03 for CS 5800. The aim is t
 
 # Backend
 # Initializing DB
-1. Open PGADMIN tool right click on databases and click create. A window will pop up give it a database name I named my brcm_db (keep note of it if yours is different) then select an owner. Leave default setting for all other tabs and click save.  
+1. Open PGADMIN tool right click on databases and click create. A window will pop up give it a database name I named my brcm_database (keep note of it if yours is different) then select an owner. Leave default setting for all other tabs and click save.  
 
 2. Right click the newly created database and select query tool. A blank Query Editor text pad will appear.
 
@@ -29,3 +29,6 @@ Bronco Recreation Complex Management system by Team 03 for CS 5800. The aim is t
 9. Then click apply and close.
 
 # Seeding Data
+1. Go to the HibernateUtil.java file and update/verify lines 31 - 33 make sure your personal postgresql username, password, port number are the same and that the database names are matching.
+
+2.Run the Seed.java file as a java application 
