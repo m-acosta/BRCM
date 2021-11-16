@@ -1,23 +1,48 @@
 package model.entities;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "customer")
 public class Customer {
 	
 	@Id
+	@Column(name ="bronco_id")
 	private String bronco_id;
 	private String fn_ln;
 	private LocalDate dob;
 	private String phone;
+	
+	@ManyToOne
+    @JoinColumn(name="address_id", nullable=false)
 	private Address address;
+	
+	@OneToOne(mappedBy="customer")
 	private Affiliation affiliation;
+	
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+	private Student student;
+	
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+	private Professor professor;
+	
+//	@OneToMany(mappedBy="order_receipt")
+//	private Set<Order> orders = new HashSet<Order>();
 	
 	public Customer() {
 		
@@ -33,20 +58,47 @@ public class Customer {
 		this.setAffiliation(affiliation);
 	}
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "title")
+//	public Set<Order> getOrders()
+//	{
+//		return this.orders;
+//	}
+//	
+//	public void setOrder(Set<Order> orders)
+//	{
+//		this.orders = orders;
+//	}
+//	
+//	public void addOrder(Order order)
+//	{
+//		this.orders.add(order);
+//	}
+	
+	public Student getStudent() {
+		return this.student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+	
+	public Professor getProfessor() {
+		return this.professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+	
 	public Affiliation getAffiliation() {
-		return affiliation;
+		return this.affiliation;
 	}
 
 	public void setAffiliation(Affiliation affiliation) {
 		this.affiliation = affiliation;
 	}
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "address_id")
-	public Address getAddress() {
-		return address;
+	public int getAddress() {
+		return address.getAddress_id();
 	}
 
 	public void setAddress(Address address) {

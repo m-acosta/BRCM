@@ -5,18 +5,18 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import model.entities.Professor;
+import model.entities.Status;
 import resources.HibernateUtil;
 
-public class ProfessorDataAccess 
-{
-	public void saveProfessor(Professor professor)
+public class StatusDataAccess {
+	
+	public void saveStatus(Status status)
 	{
 		Transaction transaction = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			session.save(professor);
+			session.save(status);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -28,13 +28,13 @@ public class ProfessorDataAccess
 		}
 	}
 	
-	public void updateProfessor(Professor professor)
+	public void updateStatus(Status status)
 	{
 		Transaction transaction = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(professor);
+			session.saveOrUpdate(status);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -46,14 +46,14 @@ public class ProfessorDataAccess
 		}
 	}
 	
-	public Professor getProfessorById(String bronco_id)
+	public Status getStatusById(String label)
 	{
 		Transaction transaction = null;
-		Professor professor = null;
+		Status status = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			professor = session.get(Professor.class, bronco_id);
+			status = session.get(Status.class, label);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -63,17 +63,17 @@ public class ProfessorDataAccess
 				transaction.rollback();
 			}
 		}
-		return professor;
+		return status;
 	}
 	
-	public List<Professor> getAllProfessors()
+	public List<Status> getAllStatuss()
 	{
 		Transaction transaction = null;
-		List<Professor> professors = null;
+		List<Status> statuss = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			professors = session.createQuery("from professor").list();
+			statuss = session.createQuery("from status").list();
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -83,18 +83,18 @@ public class ProfessorDataAccess
 				transaction.rollback();
 			}
 		}
-		return professors;
+		return statuss;
 	}
 
-	public Professor deleteProfessor(String bronco_id)
+	public Status deleteStatus(String label)
 	{
 		Transaction transaction = null;
-		Professor professor = null;
+		Status status = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			professor = session.get(Professor.class, bronco_id);
-			session.delete(professor);
+			status = session.get(Status.class, label);
+			session.delete(status);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -104,6 +104,7 @@ public class ProfessorDataAccess
 				transaction.rollback();
 			}
 		}
-		return professor;
+		return status;
 	}
+
 }

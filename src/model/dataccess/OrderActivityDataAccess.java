@@ -5,18 +5,18 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import model.entities.Professor;
+import model.entities.OrderActivity;
+import model.entities.OrderActivityId;
 import resources.HibernateUtil;
 
-public class ProfessorDataAccess 
-{
-	public void saveProfessor(Professor professor)
+public class OrderActivityDataAccess {
+	public void saveOrderActivity(OrderActivity order_activity)
 	{
 		Transaction transaction = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			session.save(professor);
+			session.save(order_activity);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -28,13 +28,13 @@ public class ProfessorDataAccess
 		}
 	}
 	
-	public void updateProfessor(Professor professor)
+	public void updateOrderActivity(OrderActivity order_activity)
 	{
 		Transaction transaction = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(professor);
+			session.saveOrUpdate(order_activity);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -46,14 +46,14 @@ public class ProfessorDataAccess
 		}
 	}
 	
-	public Professor getProfessorById(String bronco_id)
+	public OrderActivity getOrderActivityById(OrderActivityId order_id_name)
 	{
 		Transaction transaction = null;
-		Professor professor = null;
+		OrderActivity order_activity = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			professor = session.get(Professor.class, bronco_id);
+			order_activity = session.get(OrderActivity.class, order_id_name);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -63,17 +63,17 @@ public class ProfessorDataAccess
 				transaction.rollback();
 			}
 		}
-		return professor;
+		return order_activity;
 	}
 	
-	public List<Professor> getAllProfessors()
+	public List<OrderActivity> getAllOrderActivities()
 	{
 		Transaction transaction = null;
-		List<Professor> professors = null;
+		List<OrderActivity> order_activities = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			professors = session.createQuery("from professor").list();
+			order_activities = session.createQuery("from order_item").list();
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -83,18 +83,18 @@ public class ProfessorDataAccess
 				transaction.rollback();
 			}
 		}
-		return professors;
+		return order_activities;
 	}
 
-	public Professor deleteProfessor(String bronco_id)
+	public OrderActivity deleteOrderActivity(OrderActivityId order_id_name)
 	{
 		Transaction transaction = null;
-		Professor professor = null;
+		OrderActivity order_activity = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			professor = session.get(Professor.class, bronco_id);
-			session.delete(professor);
+			order_activity = session.get(OrderActivity.class, order_id_name);
+			session.delete(order_activity);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -104,6 +104,7 @@ public class ProfessorDataAccess
 				transaction.rollback();
 			}
 		}
-		return professor;
+		return order_activity;
 	}
+
 }

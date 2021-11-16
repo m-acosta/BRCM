@@ -5,18 +5,17 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import model.entities.Professor;
+import model.entities.Activity;
 import resources.HibernateUtil;
 
-public class ProfessorDataAccess 
-{
-	public void saveProfessor(Professor professor)
+public class ActivityDataAccess {
+	public void saveActivity(Activity activity)
 	{
 		Transaction transaction = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			session.save(professor);
+			session.save(activity);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -28,13 +27,13 @@ public class ProfessorDataAccess
 		}
 	}
 	
-	public void updateProfessor(Professor professor)
+	public void updateActivity(Activity activity)
 	{
 		Transaction transaction = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(professor);
+			session.saveOrUpdate(activity);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -46,14 +45,14 @@ public class ProfessorDataAccess
 		}
 	}
 	
-	public Professor getProfessorById(String bronco_id)
+	public Activity getActivityById(String name)
 	{
 		Transaction transaction = null;
-		Professor professor = null;
+		Activity activity = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			professor = session.get(Professor.class, bronco_id);
+			activity = session.get(Activity.class, name);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -63,17 +62,17 @@ public class ProfessorDataAccess
 				transaction.rollback();
 			}
 		}
-		return professor;
+		return activity;
 	}
 	
-	public List<Professor> getAllProfessors()
+	public List<Activity> getAllActivities()
 	{
 		Transaction transaction = null;
-		List<Professor> professors = null;
+		List<Activity> activities = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			professors = session.createQuery("from professor").list();
+			activities = session.createQuery("from activity").list();
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -83,18 +82,18 @@ public class ProfessorDataAccess
 				transaction.rollback();
 			}
 		}
-		return professors;
+		return activities;
 	}
 
-	public Professor deleteProfessor(String bronco_id)
+	public Activity deleteActivity(String name)
 	{
 		Transaction transaction = null;
-		Professor professor = null;
+		Activity activity = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			professor = session.get(Professor.class, bronco_id);
-			session.delete(professor);
+			activity = session.get(Activity.class, name);
+			session.delete(activity);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -104,6 +103,7 @@ public class ProfessorDataAccess
 				transaction.rollback();
 			}
 		}
-		return professor;
+		return activity;
 	}
+
 }

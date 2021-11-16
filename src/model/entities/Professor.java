@@ -1,24 +1,46 @@
 package model.entities;
 
-import java.time.LocalDate;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Professor extends Customer{
+@Table(name="professor")
+public class Professor{
 	
+	@Id
+	@Column(name = "bronco_id")
+	private String bronco_id;
 	private String office;
 	private String research;
-	private LocalDate department;
+	private String department;
+	
+	@OneToOne
+    @MapsId
+    @JoinColumn(name = "bronco_id")
+	private Customer customer;
 	
 	public Professor() {}
 	
-	public Professor(String bronco_id, String fn_ln, LocalDate dob, String phone, Address address, Affiliation affiliation, String office, String research, LocalDate department)
+	public Professor(Customer customer, String office, String research, String department)
 	{
-		super(bronco_id, fn_ln, dob, phone, address, affiliation);
+		this.setCustomer(customer);
 		this.setOffice(office);
 		this.setResearch(research);
 		this.setDepartment(department);
+	}
+	
+	public void setCustomer(Customer customer)
+	{
+		this.customer = customer;
+	}
+	
+	public String getCustomer() {
+		return customer.getBronco_id();
 	}
 
 	public String getOffice() {
@@ -37,11 +59,11 @@ public class Professor extends Customer{
 		this.research = research;
 	}
 
-	public LocalDate getDepartment() {
+	public String getDepartment() {
 		return department;
 	}
 
-	public void setDepartment(LocalDate department) {
+	public void setDepartment(String department) {
 		this.department = department;
 	}
 

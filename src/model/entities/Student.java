@@ -2,26 +2,51 @@ package model.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Student extends Customer{
+@Table(name = "student")
+public class Student{
 	
+	@Id
+	@Column(name = "bronco_id")
+	private String bronco_id;
 	private String minor;
 	private String major;
 	private LocalDate grade_date;
 	private LocalDate enter_date;
 	
+	@OneToOne
+    @MapsId
+    @JoinColumn(name = "bronco_id")
+	private Customer customer;
+	
 	public Student() {}
 	
-	public Student(String bronco_id, String fn_ln, LocalDate dob, String phone, Address address, Affiliation affiliation, String minor, String major, LocalDate grade_date, LocalDate enter_date)
+	public Student(Customer customer, String minor, String major, LocalDate grade_date, LocalDate enter_date)
 	{
-		super(bronco_id, fn_ln, dob, phone, address, affiliation);
+		this.setCustomer(customer);
 		this.setMinor(minor);
 		this.setMajor(major);
 		this.setGrade_date(grade_date);
 		this.setEnter_date(enter_date);
 	}
+	
+	public void setCustomer(Customer customer)
+	{
+		this.customer = customer;
+	}
+	
+	public String getCustomer() {
+		return customer.getBronco_id();
+	}
+
 
 	public String getMinor() {
 		return minor;
