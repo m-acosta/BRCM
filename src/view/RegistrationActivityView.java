@@ -20,7 +20,6 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 	
 	private JButton btnBack;
 	private JTable table;
-	private JLabel lblName;
 	private JButton btnCheckout;
 	private Customer customer;
 
@@ -33,9 +32,6 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 	private void initializeComponents() {
 		getContentPane().setLayout(null);
 		
-		lblName = new JLabel(customer.getFn_ln());
-		lblName.setBounds(12, 12, 70, 15);
-				
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -44,7 +40,7 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 		table = new JTable();
 		table.setBounds(12, 12, 416, 175);
 
-		btnCheckout = new JButton("Checkout");
+		btnCheckout = new JButton(customer.getFn_ln());
 		btnCheckout.setBounds(199, 215, 100, 25);
 		btnCheckout.addActionListener(this);
 		
