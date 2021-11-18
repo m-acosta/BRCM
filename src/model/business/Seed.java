@@ -111,15 +111,9 @@ public class Seed {
 		@SuppressWarnings("deprecation")
 		Time order_time_1 = new Time(0, 0, 0);
 		
-		LocalDate order_date_2 = LocalDate.of(2021, 1, 20);
-		@SuppressWarnings("deprecation")
-		Time order_time_2 = new Time(1, 1, 1);
-		
 		PurchaseDataAccess orderDa = new PurchaseDataAccess();
 		Purchase order1 = new Purchase(order_time_1, order_date_1, 544.00, status_online, student);
-		Purchase order2 = new Purchase(order_time_2, order_date_2, 144.00, status_online_complete, student);
 		orderDa.savePurchase(order1);
-		orderDa.savePurchase(order2);
 		
 		ActivityPurchaseDataAccess order_activityDa = new ActivityPurchaseDataAccess();
 		ActivityPurchaseId order_activity_1_pk = new ActivityPurchaseId(order1, activity_basketball);
@@ -129,7 +123,5 @@ public class Seed {
 		ActivityPurchaseId order_activity_2_pk = new ActivityPurchaseId(order1, activity_soccer);
 		ActivityPurchase order_activity_2 = new ActivityPurchase(order_activity_2_pk, 3);
 		order_activityDa.saveActivityPurchase(order_activity_2);
-		
-		
 	}
 }

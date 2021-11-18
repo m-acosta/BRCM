@@ -59,21 +59,6 @@ public class Customer {
 		this.setAffiliation(affiliation);
 	}
 	
-	public Set<Purchase> getPurchases()
-	{
-		return this.purchases;
-	}
-	
-	public void setPurchase(Set<Purchase> purchases)
-	{
-		this.purchases = purchases;
-	}
-	
-	public void addPurchase(Purchase purchase)
-	{
-		this.purchases.add(purchase);
-	}
-	
 	public Student getStudent() {
 		return this.student;
 	}

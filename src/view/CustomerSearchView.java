@@ -95,11 +95,6 @@ public class CustomerSearchView extends JFrame implements ActionListener {
 			try {
 				
 				Customer customer = CustomerBusiness.SearchByBroncoId(textField_1.getText());
-				Set<Purchase> hset = customer.getPurchases();
-				for (Purchase temp: hset)
-				{
-					System.out.println(temp.getPurchaseId());
-				}
 				if(customer != null)
 				{
 					int reply = JOptionPane.showConfirmDialog(null, 
