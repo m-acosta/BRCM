@@ -15,4 +15,10 @@ public class CustomerBusiness {
 	
 		return ((new CustomerDataAccess().getCustomerById(bronco_id)));
 	}
+	
+	public static void CreateCustomer(Customer customer)
+	{
+		CustomerDataAccess customerDa = new CustomerDataAccess();
+		customerDa.saveCustomer(customer);
+	}
 }

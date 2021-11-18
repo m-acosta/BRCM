@@ -3,6 +3,13 @@ package view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.business.AffiliationBusiness;
+import model.business.CustomerBusiness;
+import model.entities.Address;
+import model.entities.Affiliation;
+import model.entities.Customer;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -10,6 +17,7 @@ import javax.swing.JCheckBox;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 import javax.swing.JButton;
 
@@ -93,11 +101,27 @@ public class CustomerCreateView extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == btnCreate) {
+			Affiliation aff = null;
+			if(chckbxStudent.isSelected() && chckbxProfessor.isSelected())
+			{
+				aff = AffiliationBusiness.SearchByTitle("Both");
+			}
+			else if(chckbxStudent.isSelected())
+			{
+				aff = AffiliationBusiness.SearchByTitle("Student");
+			}
+			else
+			{
+				aff = AffiliationBusiness.SearchByTitle("Professor");
+			}
+			
+			Customer customer = new Customer(textField_1.getText(), textField.getText(), LocalDate dob, String phone, Address address, aff); // Need front end to pass in 
+			CustomerBusiness.CreateCustomer(customer);
 			int reply = JOptionPane.showConfirmDialog(null, 
 					"Account Created. Continue to Recreation Activity Registration?", "Alert", 
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			if(reply == JOptionPane.YES_OPTION) {
-				new RegistrationActivityView();
+				new RegistrationActivityView(customer);
 				dispose();
 			}
 			else if(reply == JOptionPane.NO_OPTION) {

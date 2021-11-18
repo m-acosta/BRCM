@@ -93,7 +93,6 @@ public class CustomerSearchView extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == btnSearch) {
 			try {
-				
 				Customer customer = CustomerBusiness.SearchByBroncoId(textField_1.getText());
 				if(customer != null)
 				{
