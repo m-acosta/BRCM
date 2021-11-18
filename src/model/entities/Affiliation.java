@@ -3,6 +3,7 @@ package model.entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -14,8 +15,7 @@ public class Affiliation {
 	private String title;
 	private int discount;
 	
-	@OneToOne
-	@JoinColumn(name = "title")
+	@OneToOne(mappedBy="affiliation")
 	private Customer customer;
 		
 	public Affiliation() {}

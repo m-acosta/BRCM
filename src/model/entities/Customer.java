@@ -30,7 +30,8 @@ public class Customer {
     @JoinColumn(name="address_id", nullable=false)
 	private Address address;
 	
-	@OneToOne(mappedBy="customer")
+	@OneToOne
+    @JoinColumn(name="title", nullable=false)	
 	private Affiliation affiliation;
 	
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)

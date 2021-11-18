@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import model.business.CustomerBusiness;
 import model.entities.Customer;
+import model.entities.Purchase;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,6 +16,9 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.JButton;
 
@@ -89,8 +93,13 @@ public class CustomerSearchView extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == btnSearch) {
 			try {
-				System.out.println(textField_1.getText());
+				
 				Customer customer = CustomerBusiness.SearchByBroncoId(textField_1.getText());
+				Set<Purchase> hset = customer.getPurchases();
+				for (Purchase temp: hset)
+				{
+					System.out.println(temp.getPurchaseId());
+				}
 				if(customer != null)
 				{
 					int reply = JOptionPane.showConfirmDialog(null, 
