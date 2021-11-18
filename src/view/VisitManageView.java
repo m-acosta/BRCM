@@ -24,6 +24,8 @@ public class VisitManageView extends JFrame implements ActionListener {
 	}
 	
 	private void initializeComponents() {
+		// Need to pull all customers here and put it into the content pane
+		// Name, Status, Date
 		getContentPane().setLayout(null);
 				
 		contentPane = new JPanel();
@@ -40,10 +42,10 @@ public class VisitManageView extends JFrame implements ActionListener {
 		btnBack = new JButton("Back");
 		btnBack.setBounds(311, 215, 117, 25);
 		btnBack.addActionListener(this);
-		
 	}
 	
-	private void buildUI() {
+	private void buildUI() 
+	{
 		contentPane.add(btnBack);
 		contentPane.add(table);
 		contentPane.add(btnDeleteCustomer);
