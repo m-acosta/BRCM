@@ -20,12 +20,10 @@ public class Activity
 	
 	@OneToMany
 	@JoinColumn
-	@Transient
 	private Set<ActivityPrice> activity_prices = new HashSet<ActivityPrice>();
 	
 	@OneToMany
 	@JoinColumn(name = "purchase_id")
-	@Transient
 	private Set<ActivityPurchase> activity_purchases = new HashSet<ActivityPurchase>();
 	
 	public Activity() {}

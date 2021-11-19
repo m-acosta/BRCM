@@ -1,5 +1,6 @@
 package model.dataccess;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -72,7 +73,7 @@ public class PurchaseDataAccess {
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			purchases = session.createQuery("from purchase").list();
+			purchases = (List<Purchase>)session.createQuery("FROM Purchase", Purchase.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)

@@ -34,9 +34,6 @@ public class Customer {
     @JoinColumn(name="title", nullable=false)	
 	private Affiliation affiliation;
 	
-	@OneToMany(mappedBy="customer")
-	private Set<Purchase> purchases = new HashSet<Purchase>();
-	
 	public Customer() {
 		
 	}

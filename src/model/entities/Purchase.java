@@ -27,7 +27,8 @@ public class Purchase
 	private LocalDate date;
 	private double total_price;
 	
-	@OneToOne(mappedBy="purchase")
+	@OneToOne
+	@JoinColumn(name="label", nullable=false)
 	private Status status;
 	
 	@ManyToOne
@@ -36,7 +37,6 @@ public class Purchase
 	
 	@OneToMany
 	@JoinColumn
-	@Transient
 	private Set<ActivityPurchase> activity_purchases = new HashSet<ActivityPurchase>();
 	
 	public Purchase() {}
@@ -94,16 +94,20 @@ public class Purchase
 		this.total_price = total_price;
 	}
 
-	public Status getStatus() {
-		return status;
+	public String getStatus() {
+		return status.getStatus();
 	}
 
 	public void setStatus(Status status) {
 		this.status = status;
 	}
 
-	public String getCustomer() {
+	public String getCustomerId() {
 		return customer.getBronco_id();
+	}
+	
+	public Customer getCustomer() {
+		return customer;
 	}
 
 	public void setCustomer(Customer customer) {

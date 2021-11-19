@@ -48,7 +48,4 @@ public class Affiliation {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	
-	
-
 }

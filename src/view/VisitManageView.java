@@ -2,10 +2,16 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.business.PurchaseBusiness;
+import model.entities.Purchase;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 
@@ -24,8 +30,21 @@ public class VisitManageView extends JFrame implements ActionListener {
 	}
 	
 	private void initializeComponents() {
-		// Need to pull all customers here and put it into the content pane
-		// Name, Status, Date
+		List<Purchase> purchases = null;
+		try {
+			purchases = PurchaseBusiness.getAllPurchases();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(Purchase temp: purchases)
+		{
+			System.out.println(temp.getCustomer().getFn_ln());
+			System.out.println(temp.getStatus());
+			System.out.println(temp.getDate().toString());
+		}
+		
 		getContentPane().setLayout(null);
 				
 		contentPane = new JPanel();
