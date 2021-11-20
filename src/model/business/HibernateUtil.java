@@ -33,8 +33,11 @@ public class HibernateUtil {
 				settings.put(Environment.PASS, "password");
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
 				settings.put(Environment.SHOW_SQL, "true");
+				settings.put(Environment.USE_SQL_COMMENTS, "true"); // Comment out for production
+				settings.put(Environment.FORMAT_SQL, "true");
 				settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-				settings.put(Environment.HBM2DDL_AUTO, "validate");
+				settings.put(Environment.HBM2DDL_AUTO, "validate"); // Production
+				//settings.put(Environment.HBM2DDL_AUTO, "create-drop"); // Adding to seed uncomment 
 				Configuration configuration = new Configuration().setProperties(settings);
 				configuration.addAnnotatedClass(Address.class);
 				configuration.addAnnotatedClass(Affiliation.class);
@@ -56,6 +59,11 @@ public class HibernateUtil {
 			}
 		}
 		return sessionFactory;
+	}
+	
+	public static void close()
+	{
+		sessionFactory.close();
 	}
 
 }

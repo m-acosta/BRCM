@@ -65,14 +65,14 @@ public class Seed {
 		LocalDate enterdate2 = LocalDate.of(2019, 1, 15);
 		
 		StudentDataAccess studentDa = new StudentDataAccess();
-		Student student1 = new Student(student, "CS", "None", graddate1, enterdate1);
-		Student student_both = new Student(both, "LIT", "CS", graddate2, enterdate2);
+		Student student1 = new Student(student.getBronco_id(), "CS", "None", graddate1, enterdate1);
+		Student student_both = new Student(both.getBronco_id(), "LIT", "CS", graddate2, enterdate2);
 		studentDa.saveStudent(student1);
 		studentDa.saveStudent(student_both);
 		
 		ProfessorDataAccess professorDa = new ProfessorDataAccess();
-		Professor professor1 = new Professor(professor, "CS-551", "AI", "CS");
-		Professor professor_both = new Professor(both, "LIT-120", "Literature and Medicine", "LIT");
+		Professor professor1 = new Professor(professor.getBronco_id(), "CS-551", "AI", "CS");
+		Professor professor_both = new Professor(both.getBronco_id(), "LIT-120", "Literature and Medicine", "LIT");
 		professorDa.saveProfessor(professor1);
 		professorDa.saveProfessor(professor_both);
 		
@@ -106,14 +106,25 @@ public class Seed {
 		acprDa.saveActivityPrice(football);
 		acprDa.saveActivityPrice(basketball);
 		
+		PurchaseDataAccess orderDa = new PurchaseDataAccess();
 		
 		LocalDate order_date_1 = LocalDate.of(2021, 1, 15);
 		@SuppressWarnings("deprecation")
 		Time order_time_1 = new Time(0, 0, 0);
-		
-		PurchaseDataAccess orderDa = new PurchaseDataAccess();
 		Purchase order1 = new Purchase(order_time_1, order_date_1, 544.00, status_online, student);
 		orderDa.savePurchase(order1);
+		
+		LocalDate order_date_2 = LocalDate.of(2021, 1, 16);
+		@SuppressWarnings("deprecation")
+		Time order_time_2 = new Time(1, 1, 1);
+		Purchase order2 = new Purchase(order_time_2, order_date_2, 144.00, status_online_complete, professor);
+		orderDa.savePurchase(order2);
+		
+		LocalDate order_date_3 = LocalDate.of(2021, 1, 17);
+		@SuppressWarnings("deprecation")
+		Time order_time_3 = new Time(2, 2, 2);
+		Purchase order3 = new Purchase(order_time_3, order_date_3, 244.00, status_counter, student);
+		orderDa.savePurchase(order3);
 		
 		ActivityPurchaseDataAccess order_activityDa = new ActivityPurchaseDataAccess();
 		ActivityPurchaseId order_activity_1_pk = new ActivityPurchaseId(order1, activity_basketball);

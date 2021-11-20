@@ -117,6 +117,9 @@ public class CustomerCreateView extends JFrame implements ActionListener {
 			
 			Customer customer = new Customer(textField_1.getText(), textField.getText(), LocalDate dob, String phone, Address address, aff); // Need front end to pass in 
 			CustomerBusiness.CreateCustomer(customer);
+			//  
+			//
+			
 			int reply = JOptionPane.showConfirmDialog(null, 
 					"Account Created. Continue to Recreation Activity Registration?", "Alert", 
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);

@@ -24,8 +24,8 @@ public class Address
 	private String city;
 	private String state;
 	
-	@OneToMany(mappedBy="address")
-	private Set<Customer> customers = new HashSet<Customer>();
+//	@OneToMany(mappedBy="address")
+//	private Set<Customer> customers = new HashSet<Customer>();
 	
 	public Address() {}
 	
@@ -38,20 +38,20 @@ public class Address
 		this.setState(state);
 	}
 	
-	public Set<Customer> getCustomers()
-	{
-		return this.customers;
-	}
-	
-	public void setCustomers(Set<Customer> customers)
-	{
-		this.customers = customers;
-	}
-	
-	public void addCustomer(Customer customer)
-	{
-		this.customers.add(customer);
-	}
+//	public Set<Customer> getCustomers()
+//	{
+//		return this.customers;
+//	}
+//	
+//	public void setCustomers(Set<Customer> customers)
+//	{
+//		this.customers = customers;
+//	}
+//	
+//	public void addCustomer(Customer customer)
+//	{
+//		this.customers.add(customer);
+//	}
 	
 	public int getAddress_id()
 	{

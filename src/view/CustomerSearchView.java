@@ -45,6 +45,7 @@ public class CustomerSearchView extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		// Dont need the name field to search only bronco id
 		lblName = new JLabel("Name:");
 		lblName.setBounds(12, 12, 70, 15);
 		

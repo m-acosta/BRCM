@@ -19,28 +19,23 @@ public class Professor{
 	private String research;
 	private String department;
 	
-	@OneToOne
-    @MapsId
-    @JoinColumn(name = "bronco_id")
-	private Customer customer;
-	
 	public Professor() {}
 	
-	public Professor(Customer customer, String office, String research, String department)
+	public Professor(String bronco_id, String office, String research, String department)
 	{
-		this.setCustomer(customer);
+		this.setBroncoId(bronco_id);
 		this.setOffice(office);
 		this.setResearch(research);
 		this.setDepartment(department);
 	}
 	
-	public void setCustomer(Customer customer)
+	public void setBroncoId(String bronco_id)
 	{
-		this.customer = customer;
+		this.bronco_id = bronco_id;
 	}
 	
-	public String getCustomer() {
-		return customer.getBronco_id();
+	public String getBroncoId() {
+		return this.bronco_id;
 	}
 
 	public String getOffice() {

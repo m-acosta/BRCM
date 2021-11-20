@@ -14,9 +14,6 @@ public class Affiliation {
 	@Id
 	private String title;
 	private int discount;
-	
-	@OneToOne(mappedBy="affiliation")
-	private Customer customer;
 		
 	public Affiliation() {}
 	
@@ -26,15 +23,15 @@ public class Affiliation {
 		this.setDiscount(discount);
 	}
 	
-	public Customer getCustomer()
-	{
-		return this.customer;
-	}
-	
-	public void setCustomer(Customer customer)
-	{
-		this.customer = customer;
-	}
+//	public Customer getCustomer()
+//	{
+//		return this.customer;
+//	}
+//	
+//	public void setCustomer(Customer customer)
+//	{
+//		this.customer = customer;
+//	}
 
 	public String getTitle() {
 		return title;
@@ -51,7 +48,4 @@ public class Affiliation {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	
-	
-
 }

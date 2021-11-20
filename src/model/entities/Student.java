@@ -22,29 +22,24 @@ public class Student{
 	private LocalDate grade_date;
 	private LocalDate enter_date;
 	
-	@OneToOne
-    @MapsId
-    @JoinColumn(name = "bronco_id")
-	private Customer customer;
-	
 	public Student() {}
 	
-	public Student(Customer customer, String minor, String major, LocalDate grade_date, LocalDate enter_date)
+	public Student(String bronco_id, String minor, String major, LocalDate grade_date, LocalDate enter_date)
 	{
-		this.setCustomer(customer);
+		this.setBroncoId(bronco_id);
 		this.setMinor(minor);
 		this.setMajor(major);
 		this.setGrade_date(grade_date);
 		this.setEnter_date(enter_date);
 	}
 	
-	public void setCustomer(Customer customer)
+	public void setBroncoId(String bronco_id)
 	{
-		this.customer = customer;
+		this.bronco_id = bronco_id;
 	}
 	
-	public String getCustomer() {
-		return customer.getBronco_id();
+	public String getBroncoId() {
+		return bronco_id;
 	}
 
 

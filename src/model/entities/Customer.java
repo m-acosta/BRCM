@@ -34,17 +34,6 @@ public class Customer {
     @JoinColumn(name="title", nullable=false)	
 	private Affiliation affiliation;
 	
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-	private Student student;
-	
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-	private Professor professor;
-	
-	@OneToMany(mappedBy="customer")
-	private Set<Purchase> purchases = new HashSet<Purchase>();
-	
 	public Customer() {
 		
 	}
@@ -57,22 +46,6 @@ public class Customer {
 		this.setPhone(phone);
 		this.setAddress(address);
 		this.setAffiliation(affiliation);
-	}
-	
-	public Student getStudent() {
-		return this.student;
-	}
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-	
-	public Professor getProfessor() {
-		return this.professor;
-	}
-
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
 	}
 	
 	public Affiliation getAffiliation() {
