@@ -26,8 +26,6 @@ import javax.swing.JButton;
 public class CustomerSearchView extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JLabel lblName;
-	private JTextField textField;
 	private JLabel lblBroncoId;
 	private JTextField textField_1;
 	private JButton btnSearch;
@@ -44,14 +42,6 @@ public class CustomerSearchView extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		// Dont need the name field to search only bronco id
-		lblName = new JLabel("Name:");
-		lblName.setBounds(12, 12, 70, 15);
-		
-		textField = new JTextField();
-		textField.setBounds(12, 28, 114, 19);
-		textField.setColumns(10);
 		
 		lblBroncoId = new JLabel("Bronco ID:");
 		lblBroncoId.setBounds(10, 59, 72, 15);
@@ -75,10 +65,8 @@ public class CustomerSearchView extends JFrame implements ActionListener {
 	}
 	
 	private void buildUI() {
-		contentPane.add(textField);
 		contentPane.add(lblBroncoId);
 		contentPane.add(textField_1);
-		contentPane.add(lblName);
 		contentPane.add(btnSearch);
 		contentPane.add(btnCancel);
 		contentPane.add(btnBack);
