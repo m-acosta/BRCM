@@ -4,11 +4,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.business.AddressBusiness;
 import model.business.AffiliationBusiness;
 import model.business.CustomerBusiness;
+import model.business.ProfessorBusiness;
+import model.business.StudentBusiness;
 import model.entities.Address;
 import model.entities.Affiliation;
 import model.entities.Customer;
+import model.entities.Professor;
+import model.entities.Student;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,7 +23,9 @@ import javax.swing.JCheckBox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JButton;
 
@@ -272,23 +279,73 @@ public class CustomerCreateView extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == btnCreate) {
 			Affiliation aff = null;
+			
 			if(chckbxStudent.isSelected() && chckbxProfessor.isSelected())
 			{
-				aff = AffiliationBusiness.SearchByTitle("Both");
+				try {
+					aff = AffiliationBusiness.SearchByTitle("Both");
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else if(chckbxStudent.isSelected())
 			{
-				aff = AffiliationBusiness.SearchByTitle("Student");
+				try {
+					aff = AffiliationBusiness.SearchByTitle("Student");
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else
 			{
-				aff = AffiliationBusiness.SearchByTitle("Professor");
+				try {
+					aff = AffiliationBusiness.SearchByTitle("Professor");
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
-			Customer customer = new Customer(textField_1.getText(), textField.getText(), LocalDate dob, String phone, Address address, aff); // Need front end to pass in 
+			Address address = new Address(textField_12.getText(), Integer.parseInt(textField_11.getText()), Integer.parseInt(textField_15.getText()), textField_13.getText(), textField_14.getText()); 
+			AddressBusiness.CreateAddress(address);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+			LocalDate dob = LocalDate.parse(textField_9.getText(), formatter);
+			Customer customer = new Customer(textField_1.getText(), textField.getText(), dob, textField_10.getText(), address, aff); // Need front end to pass in 
 			CustomerBusiness.CreateCustomer(customer);
-			//  
-			//
+			
+			if(chckbxStudent.isSelected() && chckbxProfessor.isSelected())
+			{
+				LocalDate grad_date = LocalDate.parse(textField_5.getText(), formatter);
+				LocalDate enter_date = LocalDate.parse(textField_4.getText(), formatter);
+				Student student = new Student(customer.getBronco_id(), textField_3.getText(), textField_2.getText(), grad_date, enter_date);
+				StudentBusiness.CreateStudent(student);
+				
+				Professor professor = new Professor(customer.getBronco_id(), textField_6.getText(), textField_7.getText(), textField_8.getText());
+				ProfessorBusiness.CreateProfessor(professor);
+			}
+			else if(chckbxStudent.isSelected())
+			{
+				LocalDate grad_date = LocalDate.parse(textField_5.getText(), formatter);
+				LocalDate enter_date = LocalDate.parse(textField_4.getText(), formatter);
+				Student student = new Student(customer.getBronco_id(), textField_3.getText(), textField_2.getText(), grad_date, enter_date);
+				StudentBusiness.CreateStudent(student);
+			}
+			else
+			{
+				Professor professor = new Professor(customer.getBronco_id(), textField_6.getText(), textField_7.getText(), textField_8.getText());
+				ProfessorBusiness.CreateProfessor(professor);
+			}
 			
 			int reply = JOptionPane.showConfirmDialog(null, 
 					"Account Created. Continue to Recreation Activity Registration?", "Alert", 
