@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import model.entities.Activity;
+import model.entities.ActivityPurchase;
+import model.entities.Purchase;
 import model.business.HibernateUtil;
 
 public class ActivityDataAccess {
@@ -45,14 +47,14 @@ public class ActivityDataAccess {
 		}
 	}
 	
-	public Activity getActivityById(String name)
+	public Activity getActivityById(int activity_id)
 	{
 		Transaction transaction = null;
 		Activity activity = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			activity = session.get(Activity.class, name);
+			activity = session.get(Activity.class, activity_id);
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -64,6 +66,25 @@ public class ActivityDataAccess {
 		}
 		return activity;
 	}
+	public double getActivityPriceByName(String name)
+	{
+		Transaction transaction = null;
+		List<Double> activity_prices = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession())
+		{
+			transaction = session.beginTransaction();
+			activity_prices = session.createQuery("SELECT price FROM Activity WHERE activity = '" + name + "' ORDER BY date").list();
+			transaction.commit();
+		}
+		catch (Exception e)
+		{
+			if(transaction != null)
+			{
+				transaction.rollback();
+			}
+		}
+		return activity_prices.get(0);
+	}
 	
 	public List<Activity> getAllActivities()
 	{
@@ -72,7 +93,27 @@ public class ActivityDataAccess {
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			activities = session.createQuery("from activity").list();
+			activities = (List<Activity>)session.createQuery("FROM Activity", Activity.class).list();
+			transaction.commit();
+		}
+		catch (Exception e)
+		{
+			if(transaction != null)
+			{
+				transaction.rollback();
+			}
+		}
+		return activities;
+	}
+	
+	public List<String> getAllActivitiesByDate()
+	{
+		Transaction transaction = null;
+		List<String> activities = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession())
+		{
+			transaction = session.beginTransaction();
+			activities = (List<String>)session.createQuery("SELECT DISTINCT(activity) FROM Activity").list();
 			transaction.commit();
 		}
 		catch (Exception e)

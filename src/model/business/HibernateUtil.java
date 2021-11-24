@@ -9,7 +9,6 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
 import model.entities.Activity;
-import model.entities.ActivityPrice;
 import model.entities.ActivityPurchase;
 import model.entities.Address;
 import model.entities.Affiliation;
@@ -46,7 +45,6 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(Student.class);
 				configuration.addAnnotatedClass(Status.class);
 				configuration.addAnnotatedClass(Activity.class);
-				configuration.addAnnotatedClass(ActivityPrice.class);
 				configuration.addAnnotatedClass(Purchase.class);
 				configuration.addAnnotatedClass(ActivityPurchase.class);
 			

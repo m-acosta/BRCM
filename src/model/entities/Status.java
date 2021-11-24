@@ -13,9 +13,6 @@ public class Status
 	
 	@Id
 	private String label;
-//	
-//	@OneToOne
-//	private Purchase purchase;
 	
 	public Status() {}
 	
@@ -23,16 +20,6 @@ public class Status
 	{
 		this.setStatus(label);
 	}
-	
-//	public Purchase getPurchase()
-//	{
-//		return this.purchase;
-//	}
-//	
-//	public void setPurchase(Purchase purchase)
-//	{
-//		this.purchase = purchase;
-//	}
 	
 	public void setStatus(String label)
 	{

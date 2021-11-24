@@ -2,18 +2,24 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.business.ActivityBusiness;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
-public class ReportsByActivityView extends JFrame implements ActionListener {
-
+public class ReportsByActivityView extends JFrame implements ActionListener 
+{
+	private double revenue;
 	private JPanel contentPane;
 	private JLabel lblRecreationalActivity;
 	private JCheckBox chckbxBodybuilding;
@@ -29,6 +35,23 @@ public class ReportsByActivityView extends JFrame implements ActionListener {
 	}
 	
 	private void initializeComponents() {
+		
+		List<String> activities = null;
+		try {
+			// need to make get all unique by activity name
+			activities = ActivityBusiness.getAllActivities();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Remove for loop when complete with gui this was just proof of concept for retrieving from DB
+		for(String temp: activities)
+		{
+			System.out.println(temp);
+			// check activity purchase tables for all the activities that are checked then get the price by date of the purchase id
+		}
+		
 		getContentPane().setLayout(null);
 				
 		contentPane = new JPanel();
@@ -78,7 +101,9 @@ public class ReportsByActivityView extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 
-	public void actionPerformed(ActionEvent event) {
+	public void actionPerformed(ActionEvent event) 
+	{
+		
 		if (event.getSource() == btnGenerateReport) {
 			JOptionPane.showMessageDialog(null, "Recreational Activity has generated $$$.");
 		}

@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import model.entities.Activity;
 import model.entities.ActivityPurchase;
 import model.entities.ActivityPurchaseId;
 import model.business.HibernateUtil;
@@ -64,6 +65,26 @@ public class ActivityPurchaseDataAccess {
 			}
 		}
 		return activity_purchase;
+	}
+	
+	public List<ActivityPurchase> getActivityPurchaseByActivity(String activity)
+	{
+		Transaction transaction = null;
+		List<ActivityPurchase> activity_purchases = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession())
+		{
+			transaction = session.beginTransaction();
+			activity_purchases = (List<ActivityPurchase>)session.createQuery("FROM Activity_purchase A WHERE A.activity_name =" + activity, ActivityPurchase.class).list();
+			transaction.commit();
+		}
+		catch (Exception e)
+		{
+			if(transaction != null)
+			{
+				transaction.rollback();
+			}
+		}
+		return activity_purchases;
 	}
 	
 	public List<ActivityPurchase> getAllActivityPurchases()

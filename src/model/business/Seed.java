@@ -4,7 +4,6 @@ import java.sql.Time;
 import java.time.LocalDate;
 
 import model.dataccess.ActivityDataAccess;
-import model.dataccess.ActivityPriceDataAccess;
 import model.dataccess.ActivityPurchaseDataAccess;
 import model.dataccess.AddressDataAccess;
 import model.dataccess.AffiliationDataAccess;
@@ -14,8 +13,6 @@ import model.dataccess.PurchaseDataAccess;
 import model.dataccess.StatusDataAccess;
 import model.dataccess.StudentDataAccess;
 import model.entities.Activity;
-import model.entities.ActivityPrice;
-import model.entities.ActivityPriceId;
 import model.entities.ActivityPurchase;
 import model.entities.ActivityPurchaseId;
 import model.entities.Address;
@@ -84,27 +81,18 @@ public class Seed {
 		statusDa.saveStatus(status_online_complete);
 		statusDa.saveStatus(status_counter);
 		
+		LocalDate priceupdate1 = LocalDate.of(2009, 1, 14);
+		LocalDate priceupdate2 = LocalDate.of(2010, 1, 15);
+		LocalDate priceupdate3 = LocalDate.of(1991, 1, 15);
 		ActivityDataAccess activityDa = new ActivityDataAccess();
-		Activity activity_basketball = new Activity("Basketball");
-		Activity activity_football = new Activity("Football");
-		Activity activity_soccer = new Activity("Soccer");
+		Activity activity_basketball = new Activity("Basketball", priceupdate1, 10.50);
+		Activity activity_football = new Activity("Football", priceupdate2, 11.50);
+		Activity activity_soccer = new Activity("Soccer", priceupdate2, 12.50);
+		Activity activity_soccer_2 = new Activity("Soccer", priceupdate3, 2.50);
 		activityDa.saveActivity(activity_soccer);
 		activityDa.saveActivity(activity_football);
 		activityDa.saveActivity(activity_basketball);
-		
-		LocalDate priceupdate1 = LocalDate.of(2009, 1, 14);
-		LocalDate priceupdate2 = LocalDate.of(2010, 1, 15);
-		ActivityPriceDataAccess acprDa = new ActivityPriceDataAccess();
-		ActivityPriceId basketball_pk = new ActivityPriceId(activity_basketball, priceupdate1);
-		ActivityPriceId football_pk = new ActivityPriceId(activity_football, priceupdate2);
-		ActivityPriceId soccer_pk = new ActivityPriceId(activity_soccer, priceupdate2);
-		
-		ActivityPrice basketball = new ActivityPrice(basketball_pk, 10.50);
-		ActivityPrice football = new ActivityPrice(football_pk, 11.50);
-		ActivityPrice soccer = new ActivityPrice(soccer_pk, 12.50);
-		acprDa.saveActivityPrice(soccer);
-		acprDa.saveActivityPrice(football);
-		acprDa.saveActivityPrice(basketball);
+		activityDa.saveActivity(activity_soccer_2);
 		
 		PurchaseDataAccess orderDa = new PurchaseDataAccess();
 		
