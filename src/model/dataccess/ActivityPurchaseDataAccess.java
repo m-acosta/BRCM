@@ -67,14 +67,14 @@ public class ActivityPurchaseDataAccess {
 		return activity_purchase;
 	}
 	
-	public List<ActivityPurchase> getActivityPurchaseByActivity(String activity)
+	public List<ActivityPurchase> getActivityPurchaseByActivity(int activity_id)
 	{
 		Transaction transaction = null;
 		List<ActivityPurchase> activity_purchases = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			activity_purchases = (List<ActivityPurchase>)session.createQuery("FROM Activity_purchase A WHERE A.activity_name =" + activity, ActivityPurchase.class).list();
+			activity_purchases = (List<ActivityPurchase>)session.createQuery("FROM ActivityPurchase WHERE activity_activity_id =" + activity_id, ActivityPurchase.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -94,7 +94,7 @@ public class ActivityPurchaseDataAccess {
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			activity_purchases = (List<ActivityPurchase>)session.createQuery("FROM ActivityPurchase WHERE purchase_id =" + purchase_id, ActivityPurchase.class).list();
+			activity_purchases = (List<ActivityPurchase>)session.createQuery("FROM ActivityPurchase WHERE purchase_purchase_id =" + purchase_id, ActivityPurchase.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)

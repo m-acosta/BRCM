@@ -29,6 +29,7 @@ import javax.swing.JTable;
 public class RegistrationActivityView extends JFrame implements ActionListener {
 
 	private Purchase purchase;
+	private double total_price;
 	private List<Activity> selectable_activities = new ArrayList<Activity>();
 	private List<Activity> selected_activities;
 	private JPanel contentPane;
@@ -54,6 +55,7 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 		
+		total_price = 0;
 		// Remove for loop when complete with gui this was just proof of concept for retrieving from DB
 		for(String temp: activities)
 		{
@@ -68,6 +70,9 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 				// need some if selected event handler to add activities to selected_activities
 				selectable_activities.add(current);
 				System.out.println(current.getPrice());
+				// rememeber to only add this to the get selected event handler
+				// also need a deselected event handler to update selected items array and to update total price
+				total_price += current.getPrice(); // also dont forget the discount we can get this with customer
 				
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
@@ -119,7 +124,7 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 			Time time = new Time(System.currentTimeMillis());
 			LocalDate local_date = LocalDate.now();
 			
-			this.purchase = new Purchase(time, local_date, 0.0, status, customer);
+			this.purchase = new Purchase(time, local_date, total_price, status, customer);
 			PurchaseBusiness.CreatePurchase(purchase);
 			
 			// for loop to go through all selected activities
