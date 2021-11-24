@@ -13,7 +13,7 @@ public class ActivityBusiness
 		return ((new ActivityDataAccess().getAllActivitiesByDate()));
 	}
 	
-	public static double getActivityPrice(String name) throws ClassNotFoundException, SQLException 
+	public static Activity getActivityPrice(String name) throws ClassNotFoundException, SQLException 
 	{
 		return ((new ActivityDataAccess().getActivityPriceByName(name)));
 	}

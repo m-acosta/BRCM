@@ -26,9 +26,9 @@ public class Activity
 	private double price;
 	
 	
-	@OneToMany
-	@JoinColumn(name = "purchase_id")
-	private Set<ActivityPurchase> activity_purchases = new HashSet<ActivityPurchase>();
+//	@OneToMany
+//	@JoinColumn(name = "purchase_id")
+//	private Set<ActivityPurchase> activity_purchases = new HashSet<ActivityPurchase>();
 	
 	public Activity() {}
 	
@@ -39,20 +39,20 @@ public class Activity
 		this.setPrice(price);
 	}
 	
-	public Set<ActivityPurchase> getActivityPurchases() 
-	{
-	    return this.activity_purchases;
-	}
-	
-	public void setActivityPurchases(Set<ActivityPurchase> activity_purchases) 
-	{
-	    this.activity_purchases = activity_purchases;
-	}
-	
-	public void addActivityPurchase(ActivityPurchase activity_purchase)
-	{
-		this.activity_purchases.add(activity_purchase);
-	}
+//	public Set<ActivityPurchase> getActivityPurchases() 
+//	{
+//	    return this.activity_purchases;
+//	}
+//	
+//	public void setActivityPurchases(Set<ActivityPurchase> activity_purchases) 
+//	{
+//	    this.activity_purchases = activity_purchases;
+//	}
+//	
+//	public void addActivityPurchase(ActivityPurchase activity_purchase)
+//	{
+//		this.activity_purchases.add(activity_purchase);
+//	}
 
 	public String getActivity() {
 		return activity;

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -13,7 +14,10 @@ import javax.swing.border.EmptyBorder;
 
 import model.business.ActivityBusiness;
 import model.business.PurchaseBusiness;
+import model.dataccess.ActivityPurchaseDataAccess;
 import model.entities.Activity;
+import model.entities.ActivityPurchase;
+import model.entities.ActivityPurchaseId;
 import model.entities.Customer;
 import model.entities.Purchase;
 import model.entities.Status;
@@ -24,8 +28,10 @@ import javax.swing.JTable;
 @SuppressWarnings("serial")
 public class RegistrationActivityView extends JFrame implements ActionListener {
 
+	private Purchase purchase;
+	private List<Activity> selectable_activities = new ArrayList<Activity>();
+	private List<Activity> selected_activities;
 	private JPanel contentPane;
-	
 	private JButton btnBack;
 	private JTable table;
 	private JButton btnCheckout;
@@ -53,12 +59,16 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 		{
 			// Have all activities but also need to get prices so I should do a query on the 
 			// activity_price table by activity_name and date closest to the current date. 
-			System.out.println(temp);
 			try {
 				// Activity
 				System.out.println(temp);
 				// Current Activity Price
-				System.out.println(ActivityBusiness.getActivityPrice(temp));
+				Activity current = ActivityBusiness.getActivityPrice(temp);
+				// list of all selectable activities
+				// need some if selected event handler to add activities to selected_activities
+				selectable_activities.add(current);
+				System.out.println(current.getPrice());
+				
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -103,13 +113,28 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == btnCheckout) 
 		{
+			// need to get selected activities here from GUI
+			// will hard code activities for now
 			Status status = new Status("Counter");
 			Time time = new Time(System.currentTimeMillis());
 			LocalDate local_date = LocalDate.now();
 			
-			Purchase purchase = new Purchase(time, local_date, 0.0, status, customer);
+			this.purchase = new Purchase(time, local_date, 0.0, status, customer);
 			PurchaseBusiness.CreatePurchase(purchase);
-			new ReceiptView();
+			
+			// for loop to go through all selected activities
+			
+			ActivityPurchaseDataAccess purchase_activityDa = new ActivityPurchaseDataAccess();
+			// this for loop should go through all selected items not selectable will change when 
+			// event handler to add selected is created.
+			for (Activity temp: this.selectable_activities)
+			{
+				ActivityPurchaseId purchase_activity_pk = new ActivityPurchaseId(this.purchase, temp);
+				ActivityPurchase purchase_activity = new ActivityPurchase(purchase_activity_pk, 1); // set to one for now dont need more than that
+				purchase_activityDa.saveActivityPurchase(purchase_activity);
+			}
+			
+			new ReceiptView(this.purchase);
 			dispose();
 		}
 		else if (event.getSource() == btnBack) {

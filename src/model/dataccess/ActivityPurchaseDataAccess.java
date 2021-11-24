@@ -87,6 +87,26 @@ public class ActivityPurchaseDataAccess {
 		return activity_purchases;
 	}
 	
+	public List<ActivityPurchase> getActivityPurchaseByPurchaseId(int purchase_id)
+	{
+		Transaction transaction = null;
+		List<ActivityPurchase> activity_purchases = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession())
+		{
+			transaction = session.beginTransaction();
+			activity_purchases = (List<ActivityPurchase>)session.createQuery("FROM ActivityPurchase WHERE purchase_id =" + purchase_id, ActivityPurchase.class).list();
+			transaction.commit();
+		}
+		catch (Exception e)
+		{
+			if(transaction != null)
+			{
+				transaction.rollback();
+			}
+		}
+		return activity_purchases;
+	}
+	
 	public List<ActivityPurchase> getAllActivityPurchases()
 	{
 		Transaction transaction = null;

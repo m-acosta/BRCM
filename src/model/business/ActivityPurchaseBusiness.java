@@ -33,4 +33,24 @@ public class ActivityPurchaseBusiness
 		
 		return 0.0;
 	}
+	
+	public static double PurchaseReceipt(int id) throws ClassNotFoundException, SQLException 
+	{
+
+		ActivityPurchaseDataAccess actpurchDa = new ActivityPurchaseDataAccess();
+		List<ActivityPurchase> activity_purchases = actpurchDa.getActivityPurchaseByPurchaseId(id);
+		for(ActivityPurchase temp: activity_purchases)
+		{
+			String activity = temp.getActivity().getActivity();
+			double price = temp.getActivity().getPrice();
+			System.out.println(activity);
+			System.out.println(price);
+			// get the purchase receipt need the date
+			// then check the activity price table for the price around that date for the activity_name  of temp2
+			// multiple the quantity with the price and move on to next purchase do the same thing tally it up
+			// if the user selected multiple activities do the same thing again for the next activity and tally it all up
+		}
+		
+		return 0.0;
+	}
 }

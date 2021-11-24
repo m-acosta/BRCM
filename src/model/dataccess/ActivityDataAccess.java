@@ -66,14 +66,14 @@ public class ActivityDataAccess {
 		}
 		return activity;
 	}
-	public double getActivityPriceByName(String name)
+	public Activity getActivityPriceByName(String name)
 	{
 		Transaction transaction = null;
-		List<Double> activity_prices = null;
+		List<Activity> activity_prices = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			activity_prices = session.createQuery("SELECT price FROM Activity WHERE activity = '" + name + "' ORDER BY date DESC").list();
+			activity_prices = session.createQuery("FROM Activity WHERE activity = '" + name + "' ORDER BY date DESC").list();
 			transaction.commit();
 		}
 		catch (Exception e)

@@ -35,9 +35,9 @@ public class Purchase
     @JoinColumn(name="bronco_id", nullable=false)	
 	private Customer customer;
 	
-	@OneToMany
-	@JoinColumn
-	private Set<ActivityPurchase> activity_purchases = new HashSet<ActivityPurchase>();
+//	@OneToMany
+//	@JoinColumn
+//	private Set<ActivityPurchase> activity_purchases = new HashSet<ActivityPurchase>();
 	
 	public Purchase() {}
 	
@@ -50,20 +50,20 @@ public class Purchase
 		this.setCustomer(customer);
 	}
 	
-	public Set<ActivityPurchase> getActivityPurchases() 
-	{
-	    return this.activity_purchases;
-	}
-	
-	public void setActivityPurchase(Set<ActivityPurchase> activity_purchases) 
-	{
-	    this.activity_purchases = activity_purchases;
-	}
-	
-	public void addActivityPurchase(ActivityPurchase activity_purchase)
-	{
-		this.activity_purchases.add(activity_purchase);
-	}
+//	public Set<ActivityPurchase> getActivityPurchases() 
+//	{
+//	    return this.activity_purchases;
+//	}
+//	
+//	public void setActivityPurchase(Set<ActivityPurchase> activity_purchases) 
+//	{
+//	    this.activity_purchases = activity_purchases;
+//	}
+//	
+//	public void addActivityPurchase(ActivityPurchase activity_purchase)
+//	{
+//		this.activity_purchases.add(activity_purchase);
+//	}
 	
 	public int getPurchaseId()
 	{

@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.business.ActivityPurchaseBusiness;
 import model.business.PurchaseBusiness;
 import model.entities.Purchase;
 
@@ -41,6 +42,12 @@ public class VisitManageView extends JFrame implements ActionListener {
 		// Remove for loop when complete with gui this was just proof of concept for retrieving from DB
 		for(Purchase temp: purchases)
 		{
+			try {
+				double test = ActivityPurchaseBusiness.PurchaseReceipt(temp.getPurchaseId());
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println(temp.getCustomer().getFn_ln());
 			System.out.println(temp.getStatus());
 			System.out.println(temp.getDate().toString());

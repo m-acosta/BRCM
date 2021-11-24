@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.entities.Purchase;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -13,14 +16,15 @@ import javax.swing.JLabel;
 @SuppressWarnings("serial")
 public class ReceiptView extends JFrame implements ActionListener {
 
+	private Purchase purchase;
 	private JPanel contentPane;
-	
 	private JButton btnMainMenu;
 	private JTable table;
 	private JLabel lblDigitalReceipt;
 	private JLabel lblThankYou;
 
-	public ReceiptView() {
+	public ReceiptView(Purchase purchase) {
+		this.purchase = purchase;
 		initializeComponents();
 		buildUI();		
 	}
@@ -49,6 +53,8 @@ public class ReceiptView extends JFrame implements ActionListener {
 	}
 	
 	private void buildUI() {
+		
+		
 		contentPane.add(btnMainMenu);
 		contentPane.add(table);
 		contentPane.add(lblDigitalReceipt);
