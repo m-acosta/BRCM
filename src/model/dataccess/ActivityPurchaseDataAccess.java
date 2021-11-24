@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import model.entities.Activity;
 import model.entities.ActivityPurchase;
 import model.entities.ActivityPurchaseId;
 import model.business.HibernateUtil;
@@ -114,7 +113,7 @@ public class ActivityPurchaseDataAccess {
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			activity_purchases = session.createQuery("from activity_purchase").list();
+			activity_purchases = (List<ActivityPurchase>)session.createQuery("FROM ActivityPurchase", ActivityPurchase.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)

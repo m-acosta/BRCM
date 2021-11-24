@@ -73,7 +73,7 @@ public class ProfessorDataAccess
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			professors = session.createQuery("from professor").list();
+			professors = (List<Professor>) session.createQuery("from Professor", Professor.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)

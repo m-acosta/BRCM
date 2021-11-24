@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 	@AssociationOverride(name = "purchase",
 		joinColumns = @JoinColumn(name = "purchase_id")),
 	@AssociationOverride(name = "activity",
-		joinColumns = @JoinColumn(name = "name")) })
+		joinColumns = @JoinColumn(name = "activity_id")) })
 public class ActivityPurchase 
 {
 	private ActivityPurchaseId primary_key = new ActivityPurchaseId();
@@ -46,9 +46,9 @@ public class ActivityPurchase
 		return this.getPrimaryKey().getPurchase();
 	}
 	
-	public void setPurchase(Purchase order)
+	public void setPurchase(Purchase purchase)
 	{
-		this.getPrimaryKey().setPurchase(order);
+		this.getPrimaryKey().setPurchase(purchase);
 	}
 	
 	@Transient

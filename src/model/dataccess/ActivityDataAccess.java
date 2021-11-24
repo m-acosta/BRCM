@@ -6,8 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import model.entities.Activity;
-import model.entities.ActivityPurchase;
-import model.entities.Purchase;
 import model.business.HibernateUtil;
 
 public class ActivityDataAccess {
@@ -73,7 +71,7 @@ public class ActivityDataAccess {
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			activity_prices = session.createQuery("FROM Activity WHERE activity = '" + name + "' ORDER BY date DESC").list();
+			activity_prices = (List<Activity>)session.createQuery("FROM Activity WHERE activity = '" + name + "' ORDER BY date DESC", Activity.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -113,7 +111,7 @@ public class ActivityDataAccess {
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			activities = (List<String>)session.createQuery("SELECT DISTINCT(activity) FROM Activity").list();
+			activities = (List<String>)session.createQuery("SELECT DISTINCT(activity) FROM Activity", String.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)

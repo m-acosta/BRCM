@@ -2,8 +2,6 @@ package model.entities;
 
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,10 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "purchase")
@@ -35,10 +31,6 @@ public class Purchase
     @JoinColumn(name="bronco_id", nullable=false)	
 	private Customer customer;
 	
-//	@OneToMany
-//	@JoinColumn
-//	private Set<ActivityPurchase> activity_purchases = new HashSet<ActivityPurchase>();
-	
 	public Purchase() {}
 	
 	public Purchase(Time time, LocalDate date, double total_price, Status status, Customer customer)
@@ -49,21 +41,6 @@ public class Purchase
 		this.setStatus(status);
 		this.setCustomer(customer);
 	}
-	
-//	public Set<ActivityPurchase> getActivityPurchases() 
-//	{
-//	    return this.activity_purchases;
-//	}
-//	
-//	public void setActivityPurchase(Set<ActivityPurchase> activity_purchases) 
-//	{
-//	    this.activity_purchases = activity_purchases;
-//	}
-//	
-//	public void addActivityPurchase(ActivityPurchase activity_purchase)
-//	{
-//		this.activity_purchases.add(activity_purchase);
-//	}
 	
 	public int getPurchaseId()
 	{

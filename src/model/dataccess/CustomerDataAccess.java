@@ -73,7 +73,7 @@ public class CustomerDataAccess {
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			customers = session.createQuery("from customer").list();
+			customers = (List<Customer>) session.createQuery("FROM Customer", Customer.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)

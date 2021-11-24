@@ -73,7 +73,7 @@ public class AffiliationDataAccess
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			affiliations = session.createQuery("from affiliation").list();
+			affiliations = (List<Affiliation>) session.createQuery("from Affiliation", Affiliation.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)

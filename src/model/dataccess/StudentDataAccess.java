@@ -73,7 +73,7 @@ public class StudentDataAccess
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			students = session.createQuery("from student").list();
+			students = (List<Student>) session.createQuery("from Student", Student.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)

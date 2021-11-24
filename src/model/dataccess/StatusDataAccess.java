@@ -73,7 +73,7 @@ public class StatusDataAccess {
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			statuss = session.createQuery("from status").list();
+			statuss = (List<Status>) session.createQuery("from Status", Status.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)
