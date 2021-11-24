@@ -55,6 +55,9 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 			// activity_price table by activity_name and date closest to the current date. 
 			System.out.println(temp);
 			try {
+				// Activity
+				System.out.println(temp);
+				// Current Activity Price
 				System.out.println(ActivityBusiness.getActivityPrice(temp));
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block

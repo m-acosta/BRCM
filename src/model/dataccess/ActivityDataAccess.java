@@ -73,7 +73,7 @@ public class ActivityDataAccess {
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			activity_prices = session.createQuery("SELECT price FROM Activity WHERE activity = '" + name + "' ORDER BY date").list();
+			activity_prices = session.createQuery("SELECT price FROM Activity WHERE activity = '" + name + "' ORDER BY date DESC").list();
 			transaction.commit();
 		}
 		catch (Exception e)
