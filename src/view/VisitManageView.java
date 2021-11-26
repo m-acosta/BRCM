@@ -14,15 +14,14 @@ import model.business.PurchaseBusiness;
 import model.entities.Purchase;
 
 import javax.swing.JButton;
-import javax.swing.JTable;
+import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class VisitManageView extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	
+	private JTextArea textArea;
 	private JButton btnBack;
-	private JTable table;
 	private JButton btnDeleteCustomer;
 
 	public VisitManageView() {
@@ -39,13 +38,19 @@ public class VisitManageView extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 		
-		// Remove for loop when complete with gui this was just proof of concept for retrieving from DB
+		textArea = new JTextArea();
+		textArea.setBounds(12, 0, 416, 203);
+		
+		textArea.append("Name, Status, Date\n");
 		for(Purchase temp: purchases)
 		{
-			System.out.println(temp.getCustomer().getFn_ln());
-			System.out.println(temp.getStatus());
-			System.out.println(temp.getDate().toString());
+			textArea.append(temp.getCustomer().getFn_ln() + ", ");
+			textArea.append(temp.getStatus() + ", ");
+			textArea.append(temp.getDate().toString() + "\n");
 		}
+		
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 		
 		getContentPane().setLayout(null);
 				
@@ -53,9 +58,6 @@ public class VisitManageView extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		table = new JTable();
-		table.setBounds(12, 12, 416, 175);
 
 		btnDeleteCustomer = new JButton("Delete Customer");
 		btnDeleteCustomer.setBounds(145, 215, 153, 25);
@@ -68,8 +70,8 @@ public class VisitManageView extends JFrame implements ActionListener {
 	private void buildUI() 
 	{
 		contentPane.add(btnBack);
-		contentPane.add(table);
 		contentPane.add(btnDeleteCustomer);
+		contentPane.add(textArea);
 		
 		setTitle("BRCM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
