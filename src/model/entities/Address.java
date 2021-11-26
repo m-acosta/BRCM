@@ -1,13 +1,10 @@
 package model.entities;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,9 +21,6 @@ public class Address
 	private String city;
 	private String state;
 	
-//	@OneToMany(mappedBy="address")
-//	private Set<Customer> customers = new HashSet<Customer>();
-	
 	public Address() {}
 	
 	public Address(String street, int number, int zip_code, String city, String state)
@@ -37,21 +31,6 @@ public class Address
 		this.setZip_code(zip_code);
 		this.setState(state);
 	}
-	
-//	public Set<Customer> getCustomers()
-//	{
-//		return this.customers;
-//	}
-//	
-//	public void setCustomers(Set<Customer> customers)
-//	{
-//		this.customers = customers;
-//	}
-//	
-//	public void addCustomer(Customer customer)
-//	{
-//		this.customers.add(customer);
-//	}
 	
 	public int getAddress_id()
 	{

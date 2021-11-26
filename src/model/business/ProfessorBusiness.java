@@ -11,7 +11,7 @@ public class ProfessorBusiness
 	public static Professor SearchByBroncoId(String bronco_id) throws ClassNotFoundException, SQLException 
 	{
 		if (bronco_id.equals("")) {
-			throw new MessageException("Customer not found.");
+			throw new MessageException("Professor not found.");
 		} 
 	
 		return ((new ProfessorDataAccess().getProfessorById(bronco_id)));

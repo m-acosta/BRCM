@@ -2,9 +2,6 @@ package model.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,16 +19,6 @@ public class Affiliation {
 		this.setTitle(title);
 		this.setDiscount(discount);
 	}
-	
-//	public Customer getCustomer()
-//	{
-//		return this.customer;
-//	}
-//	
-//	public void setCustomer(Customer customer)
-//	{
-//		this.customer = customer;
-//	}
 
 	public String getTitle() {
 		return title;

@@ -11,7 +11,7 @@ public class StudentBusiness
 	public static Student SearchByBroncoId(String bronco_id) throws ClassNotFoundException, SQLException 
 	{
 		if (bronco_id.equals("")) {
-			throw new MessageException("Customer not found.");
+			throw new MessageException("Student not found.");
 		} 
 	
 		return ((new StudentDataAccess().getStudentById(bronco_id)));

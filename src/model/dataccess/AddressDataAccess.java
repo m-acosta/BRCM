@@ -72,7 +72,7 @@ public class AddressDataAccess {
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
-			addresses = session.createQuery("from address").list();
+			addresses = (List<Address>)session.createQuery("from Address", Address.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)

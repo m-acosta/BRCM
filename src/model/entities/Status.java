@@ -2,8 +2,6 @@ package model.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,9 +11,6 @@ public class Status
 	
 	@Id
 	private String label;
-//	
-//	@OneToOne
-//	private Purchase purchase;
 	
 	public Status() {}
 	
@@ -23,16 +18,6 @@ public class Status
 	{
 		this.setStatus(label);
 	}
-	
-//	public Purchase getPurchase()
-//	{
-//		return this.purchase;
-//	}
-//	
-//	public void setPurchase(Purchase purchase)
-//	{
-//		this.purchase = purchase;
-//	}
 	
 	public void setStatus(String label)
 	{
