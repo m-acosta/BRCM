@@ -28,7 +28,11 @@ public class Affiliation {
 		this.title = title;
 	}
 
-	public int getDiscount() {
+	public double getDiscount() {
+		return Double.valueOf(discount) / 100.0;
+	}
+	
+	public int getDiscountDisplay() {
 		return discount;
 	}
 

@@ -39,7 +39,6 @@ public class VisitManageView extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 		
-		// Remove for loop when complete with gui this was just proof of concept for retrieving from DB
 		for(Purchase temp: purchases)
 		{
 			System.out.println(temp.getCustomer().getFn_ln());

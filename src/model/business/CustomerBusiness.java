@@ -1,6 +1,7 @@
 package model.business;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import model.dataccess.CustomerDataAccess;
 import model.entities.Customer;
@@ -15,6 +16,11 @@ public class CustomerBusiness
 		} 
 	
 		return ((new CustomerDataAccess().getCustomerById(bronco_id)));
+	}
+	
+	public static List<Customer> GetAllCustomers() throws ClassNotFoundException, SQLException 
+	{
+		return ((new CustomerDataAccess().getAllCustomers()));
 	}
 	
 	public static void CreateCustomer(Customer customer)

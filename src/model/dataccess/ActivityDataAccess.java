@@ -64,6 +64,7 @@ public class ActivityDataAccess {
 		}
 		return activity;
 	}
+	
 	public Activity getActivityPriceByName(String name)
 	{
 		Transaction transaction = null;
@@ -92,6 +93,26 @@ public class ActivityDataAccess {
 		{
 			transaction = session.beginTransaction();
 			activities = (List<Activity>)session.createQuery("FROM Activity", Activity.class).list();
+			transaction.commit();
+		}
+		catch (Exception e)
+		{
+			if(transaction != null)
+			{
+				transaction.rollback();
+			}
+		}
+		return activities;
+	}
+	
+	public List<Activity> getActivityIdsByName(String activity)
+	{
+		Transaction transaction = null;
+		List<Activity> activities = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession())
+		{
+			transaction = session.beginTransaction();
+			activities = (List<Activity>)session.createQuery("FROM Activity WHERE activity = '" + activity + "'", Activity.class).list();
 			transaction.commit();
 		}
 		catch (Exception e)

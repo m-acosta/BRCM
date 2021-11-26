@@ -69,10 +69,12 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 				// list of all selectable activities
 				// need some if selected event handler to add activities to selected_activities
 				selectable_activities.add(current);
-				System.out.println(current.getPrice());
+				System.out.println(customer.getAffiliation().getDiscountDisplay() + "% Discount Value");
+				double discount_price = current.getPrice() - Math.round(current.getPrice() * (customer.getAffiliation().getDiscount()));
+				System.out.println(discount_price + " Total Price With Discount");
 				// rememeber to only add this to the get selected event handler
 				// also need a deselected event handler to update selected items array and to update total price
-				total_price += current.getPrice(); // also dont forget the discount we can get this with customer
+				total_price += discount_price; // also dont forget the discount we can get this with customer
 				
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
