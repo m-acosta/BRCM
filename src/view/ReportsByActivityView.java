@@ -24,10 +24,9 @@ public class ReportsByActivityView extends JFrame implements ActionListener
 	private double revenue;
 	private JPanel contentPane;
 	private JLabel lblRecreationalActivity;
-	private JCheckBox chckbxBodybuilding;
-	private JCheckBox chckbxSwimming;
-	private JCheckBox chckbxDance;
-	private JCheckBox chckbxMartialArts;
+	private JCheckBox chckbxBasketball;
+	private JCheckBox chckbxSoccer;
+	private JCheckBox chckbxFootball;
 	private JButton btnCancel;
 	private JButton btnGenerateReport;
 
@@ -81,17 +80,14 @@ public class ReportsByActivityView extends JFrame implements ActionListener
 		lblRecreationalActivity = new JLabel("Recreational Activity");
 		lblRecreationalActivity.setBounds(12, 0, 145, 15);
 		
-		chckbxBodybuilding = new JCheckBox("Bodybuilding");
-		chckbxBodybuilding.setBounds(12, 23, 129, 23);
+		chckbxBasketball = new JCheckBox("Basketball");
+		chckbxBasketball.setBounds(12, 23, 129, 23);
 		
-		chckbxSwimming = new JCheckBox("Swimming");
-		chckbxSwimming.setBounds(12, 50, 129, 23);
+		chckbxSoccer = new JCheckBox("Soccer");
+		chckbxSoccer.setBounds(12, 50, 129, 23);
 		
-		chckbxDance = new JCheckBox("Dance");
-		chckbxDance.setBounds(12, 77, 129, 23);
-		
-		chckbxMartialArts = new JCheckBox("Martial Arts");
-		chckbxMartialArts.setBounds(12, 104, 129, 23);
+		chckbxFootball = new JCheckBox("Football");
+		chckbxFootball.setBounds(12, 77, 129, 23);
 		
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(311, 215, 117, 25);
@@ -105,10 +101,9 @@ public class ReportsByActivityView extends JFrame implements ActionListener
 	
 	private void buildUI() {
 		contentPane.add(lblRecreationalActivity);
-		contentPane.add(chckbxBodybuilding);
-		contentPane.add(chckbxSwimming);
-		contentPane.add(chckbxDance);
-		contentPane.add(chckbxMartialArts);
+		contentPane.add(chckbxBasketball);
+		contentPane.add(chckbxSoccer);
+		contentPane.add(chckbxFootball);
 		contentPane.add(btnCancel);
 		contentPane.add(btnGenerateReport);
 		

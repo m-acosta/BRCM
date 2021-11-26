@@ -2,8 +2,11 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.List;
+import java.awt.event.ItemEvent;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,18 +20,20 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JCheckBox;
 import javax.swing.JToggleButton;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class ReportsByCustomerView extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JLabel lblCustomerAndID;
-	private JCheckBox chckbxCustomer1;
-	private JCheckBox chckbxCustomer2;
-	private JCheckBox chckbxCustomer3;
-	private JCheckBox chckbxCustomer4;
+	private JPanel datePanel;
+	private JLabel lblBroncoID;
+	private JLabel lblStartDate;
 	private JButton btnCancel;
 	private JButton btnGenerateReport;
+	private JToggleButton tglbtnEnableDateRange;
+	private JTextField textFieldDate;
+	private JTextField textFieldID;
 
 	public ReportsByCustomerView() {
 		initializeComponents();
@@ -43,20 +48,31 @@ public class ReportsByCustomerView extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lblCustomerAndID = new JLabel("Customer and ID");
-		lblCustomerAndID.setBounds(12, 0, 145, 15);
+		datePanel = new JPanel();
+		datePanel.setBounds(241, 49, 187, 121);
+		datePanel.setLayout(null);
+		datePanel.setVisible(false);
 		
-		chckbxCustomer1 = new JCheckBox("Customer 1");
-		chckbxCustomer1.setBounds(12, 23, 129, 23);
+		tglbtnEnableDateRange = new JToggleButton("Enable Date Range");
+		tglbtnEnableDateRange.setBounds(259, 12, 169, 25);
+		contentPane.add(tglbtnEnableDateRange);
+		tglbtnEnableDateRange.addItemListener(e -> datePanel.setVisible(e.getStateChange() == ItemEvent.SELECTED));
 		
-		chckbxCustomer2 = new JCheckBox("Customer 2");
-		chckbxCustomer2.setBounds(12, 50, 129, 23);
+		lblStartDate = new JLabel("Start Date (to present):");
+		lblStartDate.setBounds(0, 0, 168, 15);
+		datePanel.add(lblStartDate);
 		
-		chckbxCustomer3 = new JCheckBox("Customer 3");
-		chckbxCustomer3.setBounds(12, 77, 129, 23);
+		textFieldDate = new JTextField();
+		textFieldDate.setBounds(0, 27, 114, 19);
+		datePanel.add(textFieldDate);
+		textFieldDate.setColumns(10);
 		
-		chckbxCustomer4 = new JCheckBox("Customer 4");
-		chckbxCustomer4.setBounds(12, 104, 129, 23);
+		lblBroncoID = new JLabel("Bronco ID");
+		lblBroncoID.setBounds(12, 0, 145, 15);
+		
+		textFieldID = new JTextField();
+		textFieldID.setBounds(12, 27, 114, 19);
+		textFieldID.setColumns(10);
 		
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(311, 215, 117, 25);
@@ -69,17 +85,11 @@ public class ReportsByCustomerView extends JFrame implements ActionListener {
 	}
 	
 	private void buildUI() {
-		contentPane.add(lblCustomerAndID);
-		contentPane.add(chckbxCustomer1);
-		contentPane.add(chckbxCustomer2);
-		contentPane.add(chckbxCustomer3);
-		contentPane.add(chckbxCustomer4);
+		contentPane.add(lblBroncoID);
 		contentPane.add(btnCancel);
 		contentPane.add(btnGenerateReport);
-		
-		JToggleButton tglbtnEnableDateRange = new JToggleButton("Enable Date Range");
-		tglbtnEnableDateRange.setBounds(259, 12, 169, 25);
-		contentPane.add(tglbtnEnableDateRange);
+		contentPane.add(datePanel);
+		contentPane.add(textFieldID);
 		
 		setTitle("BRCM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,6 +101,26 @@ public class ReportsByCustomerView extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == btnGenerateReport) {
+			try {
+				Customer customer = CustomerBusiness.SearchByBroncoId(textFieldID.getText());
+				if (customer != null) {
+					if (tglbtnEnableDateRange.isSelected()) {
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+						LocalDate startDate = LocalDate.parse(textFieldDate.getText(), formatter);
+					}
+					else {
+						// All purchases by customer
+					}
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			
 			JOptionPane.showMessageDialog(null, "Customer has spent $$$.");
 		}
 		else if (event.getSource() == btnCancel) {
