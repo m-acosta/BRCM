@@ -17,4 +17,9 @@ public class ActivityBusiness
 	{
 		return ((new ActivityDataAccess().getActivityPriceByName(name)));
 	}
+	
+	public static List<Activity> getActivityIds(String activity) throws ClassNotFoundException, SQLException 
+	{
+		return ((new ActivityDataAccess().getActivityIdsByName(activity)));
+	}
 }

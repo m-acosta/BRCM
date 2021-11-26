@@ -27,6 +27,10 @@ public class Activity
 		this.setDate(date);
 		this.setPrice(price);
 	}
+	
+	public int getActivityId() {
+		return activity_id;
+	}
 
 	public String getActivity() {
 		return activity;

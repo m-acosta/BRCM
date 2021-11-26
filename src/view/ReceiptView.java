@@ -10,7 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.business.ActivityBusiness;
 import model.business.ActivityPurchaseBusiness;
+import model.entities.Activity;
 import model.entities.ActivityPurchase;
 import model.entities.Purchase;
 
@@ -55,9 +57,14 @@ public class ReceiptView extends JFrame implements ActionListener {
 			// put all these on same line
 			System.out.println(activity);
 			System.out.println(price);
-			System.out.println(purchase.getCustomer().getAffiliation().getDiscount());
+			System.out.println(purchase.getCustomer().getAffiliation().getDiscountDisplay());
+			
+			double discount_price = price- Math.round(price * (purchase.getCustomer().getAffiliation().getDiscount()));
+			System.out.println(discount_price + " Total Price With Discount");
 		}
+		
 		System.out.println(purchase.getTotal_price());
+		
 		getContentPane().setLayout(null);
 				
 		contentPane = new JPanel();

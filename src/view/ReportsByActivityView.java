@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.business.ActivityBusiness;
+import model.business.ActivityPurchaseBusiness;
+import model.entities.Activity;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -36,7 +38,8 @@ public class ReportsByActivityView extends JFrame implements ActionListener
 	private void initializeComponents() {
 		
 		List<String> activities = null;
-		try {
+		try 
+		{
 			// need to make get all unique by activity name
 			activities = ActivityBusiness.getAllActivities();
 		} catch (ClassNotFoundException | SQLException e) {
@@ -44,10 +47,26 @@ public class ReportsByActivityView extends JFrame implements ActionListener
 			e.printStackTrace();
 		}
 		
+		revenue = 0;
 		// Remove for loop when complete with gui this was just proof of concept for retrieving from DB
 		for(String temp: activities)
 		{
-			System.out.println(temp);
+			List<Activity> activity_ids = null;
+			try {
+				activity_ids = ActivityBusiness.getActivityIds(temp);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				revenue += ActivityPurchaseBusiness.RevenueReportByActivities(activity_ids);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// check activity purchase tables for all the activities that are checked then get the price by date of the purchase id
 		}
 		
@@ -100,7 +119,7 @@ public class ReportsByActivityView extends JFrame implements ActionListener
 	{
 		
 		if (event.getSource() == btnGenerateReport) {
-			JOptionPane.showMessageDialog(null, "Recreational Activity has generated $$$.");
+			JOptionPane.showMessageDialog(null, "Selected Recreational Activities have generated $" + revenue);
 		}
 		else if (event.getSource() == btnCancel) {
 			new AdminView();
