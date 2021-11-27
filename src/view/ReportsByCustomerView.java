@@ -13,18 +13,19 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.business.CustomerBusiness;
+import model.business.PurchaseBusiness;
 import model.entities.Customer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JCheckBox;
 import javax.swing.JToggleButton;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class ReportsByCustomerView extends JFrame implements ActionListener {
 
+	private double revenue;
 	private JPanel contentPane;
 	private JPanel datePanel;
 	private JLabel lblBroncoID;
@@ -102,15 +103,13 @@ public class ReportsByCustomerView extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == btnGenerateReport) {
 			try {
-				Customer customer = CustomerBusiness.SearchByBroncoId(textFieldID.getText());
-				if (customer != null) {
-					if (tglbtnEnableDateRange.isSelected()) {
-						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-						LocalDate startDate = LocalDate.parse(textFieldDate.getText(), formatter);
-					}
-					else {
-						// All purchases by customer
-					}
+				if (tglbtnEnableDateRange.isSelected()) {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+					LocalDate startDate = LocalDate.parse(textFieldDate.getText(), formatter);
+					revenue = PurchaseBusiness.getCustomerRevenueByDate(textFieldID.getText(), startDate);
+				}
+				else {
+					revenue = PurchaseBusiness.getCustomerRevenueByID(textFieldID.getText());
 				}
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -121,7 +120,7 @@ public class ReportsByCustomerView extends JFrame implements ActionListener {
 			}
 
 			
-			JOptionPane.showMessageDialog(null, "Customer has spent $$$.");
+			JOptionPane.showMessageDialog(null, "Customer has spent " + revenue);
 		}
 		else if (event.getSource() == btnCancel) {
 			new AdminView();

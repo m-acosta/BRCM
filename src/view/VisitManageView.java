@@ -41,12 +41,13 @@ public class VisitManageView extends JFrame implements ActionListener {
 		textArea = new JTextArea();
 		textArea.setBounds(12, 0, 416, 203);
 		
-		textArea.append("Name, Status, Date\n");
+		textArea.append("Name, Status, Date, time\n");
 		for(Purchase temp: purchases)
 		{
 			textArea.append(temp.getCustomer().getFn_ln() + ", ");
 			textArea.append(temp.getStatus() + ", ");
-			textArea.append(temp.getDate().toString() + "\n");
+			textArea.append(temp.getDate().toString() + ", ");
+			textArea.append(temp.getTime().toString() + "\n");
 		}
 		
 		textArea.setLineWrap(true);

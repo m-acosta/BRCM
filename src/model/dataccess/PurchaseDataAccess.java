@@ -1,5 +1,6 @@
 package model.dataccess;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -84,6 +85,47 @@ public class PurchaseDataAccess {
 		}
 		return purchases;
 	}
+	
+	public List<Purchase> getAllPurchasesByCustomerId(String bronco_id)
+	{
+		Transaction transaction = null;
+		List<Purchase> purchases = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession())
+		{
+			transaction = session.beginTransaction();
+			purchases = (List<Purchase>)session.createQuery("FROM Purchase WHERE bronco_id = '" + bronco_id + "'", Purchase.class).list();
+			transaction.commit();
+		}
+		catch (Exception e)
+		{
+			if(transaction != null)
+			{
+				transaction.rollback();
+			}
+		}
+		return purchases;
+	}
+	
+	public List<Purchase> getAllPurchasesByCustomerDate(String bronco_id, LocalDate date)
+	{
+		Transaction transaction = null;
+		List<Purchase> purchases = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession())
+		{
+			transaction = session.beginTransaction();
+			purchases = (List<Purchase>)session.createQuery("FROM Purchase WHERE bronco_id = '" + bronco_id + "' AND date > DATE('" + date + "')", Purchase.class).list();
+			transaction.commit();
+		}
+		catch (Exception e)
+		{
+			if(transaction != null)
+			{
+				transaction.rollback();
+			}
+		}
+		return purchases;
+	}
+
 
 	public Purchase deletePurchase(int purchase_id)
 	{
