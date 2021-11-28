@@ -23,20 +23,31 @@ import model.entities.Purchase;
 import model.entities.Status;
 
 import javax.swing.JButton;
-import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class RegistrationActivityView extends JFrame implements ActionListener {
 
 	private Purchase purchase;
-	private double total_price;
+	private double total_price, baPrice, soPrice, foPrice;
 	private List<Activity> selectable_activities = new ArrayList<Activity>();
 	private List<Activity> selected_activities;
 	private JPanel contentPane;
 	private JButton btnBack;
-	private JTable table;
 	private JButton btnCheckout;
 	private Customer customer;
+	private JLabel lblBasketball;
+	private JCheckBox chckbxBasketballCart;
+	private JLabel lblSoccerAtA;
+	private JCheckBox chckbxSoccerCart;
+	private JLabel lblFootballAtA;
+	private JCheckBox chckbxFootballCart;
+	private JLabel lblCart;
+	private JLabel lblBasketballX;
+	private JLabel lblSoccerX;
+	private JLabel lblFootballX;
+	private JLabel lblTotalPriceX;
 
 	public RegistrationActivityView(Customer customer) {
 		this.customer = customer;
@@ -56,26 +67,20 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 		}
 		
 		total_price = 0;
-		// Remove for loop when complete with gui this was just proof of concept for retrieving from DB
 		for(String temp: activities)
 		{
 			// Have all activities but also need to get prices so I should do a query on the 
 			// activity_price table by activity_name and date closest to the current date. 
 			try {
-				// Activity
-				System.out.println(temp);
-				// Current Activity Price
-				Activity current = ActivityBusiness.getActivityPrice(temp);
-				// list of all selectable activities
-				// need some if selected event handler to add activities to selected_activities
-				selectable_activities.add(current);
-				System.out.println(customer.getAffiliation().getDiscountDisplay() + "% Discount Value");
-				double discount_price = current.getPrice() - Math.round(current.getPrice() * (customer.getAffiliation().getDiscount()));
-				System.out.println(discount_price + " Total Price With Discount");
-				// rememeber to only add this to the get selected event handler
-				// also need a deselected event handler to update selected items array and to update total price
-				total_price += discount_price; // also dont forget the discount we can get this with customer
-				
+				if (temp.equals("Basketball")) {
+					baPrice = ActivityBusiness.getActivityPrice(temp).getPrice();
+				}
+				else if (temp.equals("Soccer")) {
+					soPrice = ActivityBusiness.getActivityPrice(temp).getPrice();
+				}
+				else if (temp.equals("Football")) {
+					foPrice = ActivityBusiness.getActivityPrice(temp).getPrice();
+				}
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -83,41 +88,149 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 		
 		}
 		
-		
 		getContentPane().setLayout(null);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
-		table = new JTable();
-		table.setBounds(12, 12, 416, 175);
 
 		btnCheckout = new JButton("Checkout");
-		btnCheckout.setBounds(199, 215, 100, 25);
+		btnCheckout.setBounds(349, 331, 100, 25);
 		btnCheckout.addActionListener(this);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(311, 215, 117, 25);
+		btnBack.setBounds(461, 331, 117, 25);
 		btnBack.addActionListener(this);
 		
 	}
 	
 	private void buildUI() {
+		contentPane.setLayout(null);
 		contentPane.add(btnBack);
-		contentPane.add(table);
 		contentPane.add(btnCheckout);
+		
+		lblBasketball = new JLabel("Basketball at a price of $" + baPrice);
+		lblBasketball.setBounds(12, 0, 278, 15);
+		contentPane.add(lblBasketball);
+		
+		chckbxBasketballCart = new JCheckBox("Add to Cart");
+		chckbxBasketballCart.setBounds(12, 23, 129, 23);
+		chckbxBasketballCart.addActionListener(this);
+		contentPane.add(chckbxBasketballCart);
+		
+		lblSoccerAtA = new JLabel("Soccer at a price of $" + soPrice);
+		lblSoccerAtA.setBounds(12, 50, 278, 15);
+		contentPane.add(lblSoccerAtA);
+		
+		chckbxSoccerCart = new JCheckBox("Add to Cart");
+		chckbxSoccerCart.setBounds(12, 73, 129, 23);
+		chckbxSoccerCart.addActionListener(this);
+		contentPane.add(chckbxSoccerCart);
+		
+		lblFootballAtA = new JLabel("Football at a price of $" + foPrice);
+		lblFootballAtA.setBounds(12, 101, 278, 15);
+		contentPane.add(lblFootballAtA);
+		
+		chckbxFootballCart = new JCheckBox("Add to Cart");
+		chckbxFootballCart.setBounds(12, 124, 129, 23);
+		chckbxFootballCart.addActionListener(this);
+		contentPane.add(chckbxFootballCart);
+		
+		lblCart = new JLabel("Cart:");
+		lblCart.setBounds(12, 169, 70, 15);
+		contentPane.add(lblCart);
+		
+		lblBasketballX = new JLabel("Basketball x 0");
+		lblBasketballX.setBounds(12, 204, 278, 15);
+		contentPane.add(lblBasketballX);
+		
+		lblSoccerX = new JLabel("Soccer x 0");
+		lblSoccerX.setBounds(12, 231, 278, 15);
+		contentPane.add(lblSoccerX);
+		
+		lblFootballX = new JLabel("Football x 0");
+		lblFootballX.setBounds(12, 258, 278, 15);
+		contentPane.add(lblFootballX);
+		
+		lblTotalPriceX = new JLabel("Total Price: $" + total_price + 
+				" at a discount of " + customer.getAffiliation().getDiscount() + " = $"
+				+ (total_price - Math.round(total_price*customer.getAffiliation().getDiscount())));
+		lblTotalPriceX.setBounds(12, 285, 450, 15);
+		contentPane.add(lblTotalPriceX);
 		
 		setTitle("BRCM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 600, 398);
 		
 		setResizable(false);
 		setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent event) {
+		if (event.getSource() == chckbxBasketballCart) {
+			try {
+				Activity current = ActivityBusiness.getActivityPrice("Basketball");
+				if (chckbxBasketballCart.isSelected()) {
+					total_price += baPrice;
+					lblBasketballX.setText("Basketball x 1");
+					selectable_activities.add(current);
+				}
+				else {
+					total_price -= baPrice;
+					lblBasketballX.setText("Basketball x 0");
+					selectable_activities.remove(current);
+				}
+				lblTotalPriceX.setText("Total Price: $" + total_price + 
+						" at a discount of " + customer.getAffiliation().getDiscount() + " = $"
+						+ (total_price - Math.round(total_price*customer.getAffiliation().getDiscount())));
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (event.getSource() == chckbxSoccerCart) {
+			try {
+				Activity current = ActivityBusiness.getActivityPrice("Soccer");
+				if (chckbxSoccerCart.isSelected()) {
+					total_price += soPrice;
+					lblSoccerX.setText("Soccer x 1");
+					selectable_activities.add(current);
+				}
+				else {
+					total_price -= soPrice;
+					lblSoccerX.setText("Soccer x 0");
+					selectable_activities.remove(current);
+				}
+				lblTotalPriceX.setText("Total Price: $" + total_price + 
+						" at a discount of " + customer.getAffiliation().getDiscount() + " = $"
+						+ (total_price - Math.round(total_price*customer.getAffiliation().getDiscount())));
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (event.getSource() == chckbxFootballCart) {
+			try {
+				Activity current = ActivityBusiness.getActivityPrice("Football");
+				if (chckbxFootballCart.isSelected()) {
+					total_price += foPrice;
+					lblFootballX.setText("Football x 1");
+					selectable_activities.add(current);
+				}
+				else {
+					total_price -= foPrice;
+					lblFootballX.setText("Football x 0");
+					selectable_activities.remove(current);
+				}
+				lblTotalPriceX.setText("Total Price: $" + total_price + 
+						" at a discount of " + customer.getAffiliation().getDiscount() + " = $"
+						+ (total_price - Math.round(total_price*customer.getAffiliation().getDiscount())));
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 		if (event.getSource() == btnCheckout) 
 		{
 			// need to get selected activities here from GUI

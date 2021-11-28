@@ -19,14 +19,15 @@ import model.entities.Purchase;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class ReceiptView extends JFrame implements ActionListener {
 
 	private Purchase purchase;
+	private JTextArea textArea;
 	private JPanel contentPane;
 	private JButton btnMainMenu;
-	private JTable table;
 	private JLabel lblDigitalReceipt;
 	private JLabel lblThankYou;
 
@@ -45,25 +46,34 @@ public class ReceiptView extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 		
-		System.out.println(purchase.getCustomer().getFn_ln());
-		System.out.println(purchase.getCustomerId());
-		System.out.println(purchase.getDate().toString());
-		System.out.println(purchase.getTime().toString());
+		textArea = new JTextArea();
+		textArea.setBounds(12, 43, 523, 230);
+		
+		textArea.append(purchase.getCustomer().getFn_ln() + ", "
+				+ "Bronco ID: " + purchase.getCustomerId() + ", "
+				+ purchase.getDate().toString() + ", "
+				+ purchase.getTime().toString() + "\n");
+
+		double total_price = 0.0;
 		for(ActivityPurchase temp: activity_purchases)
 		{
 			String activity = temp.getActivity().getActivity();
 			double price = temp.getActivity().getPrice();
+			total_price += price;
 			
 			// put all these on same line
-			System.out.println(activity);
-			System.out.println(price);
-			System.out.println(purchase.getCustomer().getAffiliation().getDiscountDisplay());
-			
-			double discount_price = price- Math.round(price * (purchase.getCustomer().getAffiliation().getDiscount()));
-			System.out.println(discount_price + " Total Price With Discount");
+			textArea.append(activity + " $" + price + 
+					" at " + purchase.getCustomer().getAffiliation().getDiscountDisplay() 
+					+ "% discount \n");
 		}
+		double discount_price = total_price - Math.round(total_price * (purchase.getCustomer().getAffiliation().getDiscount()));
+		
+		textArea.append("$" + discount_price + " = Total Price With Discount" + "\n");
 		
 		System.out.println(purchase.getTotal_price());
+		
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 		
 		getContentPane().setLayout(null);
 				
@@ -75,14 +85,11 @@ public class ReceiptView extends JFrame implements ActionListener {
 		lblDigitalReceipt = new JLabel("Digital Receipt");
 		lblDigitalReceipt.setBounds(12, 12, 103, 15);
 		
-		table = new JTable();
-		table.setBounds(12, 50, 416, 94);
-		
 		lblThankYou = new JLabel("Thank you!");
-		lblThankYou.setBounds(12, 156, 78, 15);
+		lblThankYou.setBounds(12, 302, 78, 15);
 		
 		btnMainMenu = new JButton("Back");
-		btnMainMenu.setBounds(311, 215, 117, 25);
+		btnMainMenu.setBounds(418, 336, 117, 25);
 		btnMainMenu.addActionListener(this);
 		
 	}
@@ -91,13 +98,13 @@ public class ReceiptView extends JFrame implements ActionListener {
 		
 		
 		contentPane.add(btnMainMenu);
-		contentPane.add(table);
 		contentPane.add(lblDigitalReceipt);
 		contentPane.add(lblThankYou);
+		contentPane.add(textArea);
 		
 		setTitle("BRCM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 557, 403);
 		
 		setResizable(false);
 		setVisible(true);
