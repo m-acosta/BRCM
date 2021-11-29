@@ -111,6 +111,8 @@ public class ReportsByCustomerView extends JFrame implements ActionListener {
 					else {
 						// All purchases by customer
 					}
+					
+					JOptionPane.showMessageDialog(null, "Customer has spent $$$.");
 				}
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -120,8 +122,6 @@ public class ReportsByCustomerView extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 
-			
-			JOptionPane.showMessageDialog(null, "Customer has spent $$$.");
 		}
 		else if (event.getSource() == btnCancel) {
 			new AdminView();
