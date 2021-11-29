@@ -15,6 +15,9 @@ import model.entities.Purchase;
 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class VisitManageView extends JFrame implements ActionListener {
@@ -23,6 +26,8 @@ public class VisitManageView extends JFrame implements ActionListener {
 	private JTextArea textArea;
 	private JButton btnBack;
 	private JButton btnDeleteCustomer;
+	private JTextField textField;
+	private JLabel lblBroncoId;
 
 	public VisitManageView() {
 		initializeComponents();
@@ -39,7 +44,7 @@ public class VisitManageView extends JFrame implements ActionListener {
 		}
 		
 		textArea = new JTextArea();
-		textArea.setBounds(12, 0, 416, 203);
+		textArea.setBounds(12, 0, 566, 263);
 		
 		textArea.append("Name, Status, Date, time\n");
 		for(Purchase temp: purchases)
@@ -61,10 +66,11 @@ public class VisitManageView extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 
 		btnDeleteCustomer = new JButton("Delete Customer");
-		btnDeleteCustomer.setBounds(145, 215, 153, 25);
+		btnDeleteCustomer.setBounds(425, 291, 153, 25);
+		btnDeleteCustomer.addActionListener(this);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(311, 215, 117, 25);
+		btnBack.setBounds(461, 328, 117, 25);
 		btnBack.addActionListener(this);
 	}
 	
@@ -74,16 +80,29 @@ public class VisitManageView extends JFrame implements ActionListener {
 		contentPane.add(btnDeleteCustomer);
 		contentPane.add(textArea);
 		
+		lblBroncoId = new JLabel("Bronco ID: ");
+		lblBroncoId.setBounds(205, 296, 76, 15);
+		contentPane.add(lblBroncoId);
+		
+		textField = new JTextField();
+		textField.setBounds(299, 294, 114, 19);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
 		setTitle("BRCM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 600, 402);
 		
 		setResizable(false);
 		setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent event) {
-		if (event.getSource() == btnBack) {
+		if (event.getSource() == btnDeleteCustomer) {
+			
+			dispose();
+		}
+		else if (event.getSource() == btnBack) {
 			new AdminView();
 			dispose();
 		}
