@@ -178,7 +178,13 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 				else {
 					total_price -= baPrice;
 					lblBasketballX.setText("Basketball x 0");
-					selectable_activities.remove(current);
+					for(int i =0; i < selectable_activities.size(); i++)
+					{
+						if(selectable_activities.get(i).getActivity().equals("Basketball"))
+						{
+							selectable_activities.remove(i);
+						}
+					}
 				}
 				lblTotalPriceX.setText("Total Price: $" + total_price + 
 						" at a discount of " + customer.getAffiliation().getDiscount() + " = $"
@@ -199,7 +205,13 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 				else {
 					total_price -= soPrice;
 					lblSoccerX.setText("Soccer x 0");
-					selectable_activities.remove(current);
+					for(int i =0; i < selectable_activities.size(); i++)
+					{
+						if(selectable_activities.get(i).getActivity().equals("Soccer"))
+						{
+							selectable_activities.remove(i);
+						}
+					}
 				}
 				lblTotalPriceX.setText("Total Price: $" + total_price + 
 						" at a discount of " + customer.getAffiliation().getDiscount() + " = $"
@@ -220,7 +232,13 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 				else {
 					total_price -= foPrice;
 					lblFootballX.setText("Football x 0");
-					selectable_activities.remove(current);
+					for(int i =0; i < selectable_activities.size(); i++)
+					{
+						if(selectable_activities.get(i).getActivity().equals("Football"))
+						{
+							selectable_activities.remove(i);
+						}
+					}
 				}
 				lblTotalPriceX.setText("Total Price: $" + total_price + 
 						" at a discount of " + customer.getAffiliation().getDiscount() + " = $"

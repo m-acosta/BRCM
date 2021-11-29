@@ -97,6 +97,10 @@ public class CustomerSearchView extends JFrame implements ActionListener {
 						dispose();
 					}
 				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Could not find account");
+				}
 			} catch (HeadlessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
