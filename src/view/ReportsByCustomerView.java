@@ -113,7 +113,7 @@ public class ReportsByCustomerView extends JFrame implements ActionListener {
 						revenue = PurchaseBusiness.getCustomerRevenueByID(textFieldID.getText());
 					}
 					
-					JOptionPane.showMessageDialog(null, customer.getFn_ln() + "Has spent $" + revenue);
+					JOptionPane.showMessageDialog(null, customer.getFn_ln() + " has spent $" + revenue);
 				}
 				else
 				{
