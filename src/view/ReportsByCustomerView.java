@@ -2,7 +2,6 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.awt.event.ItemEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -103,13 +102,22 @@ public class ReportsByCustomerView extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == btnGenerateReport) {
 			try {
-				if (tglbtnEnableDateRange.isSelected()) {
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-					LocalDate startDate = LocalDate.parse(textFieldDate.getText(), formatter);
-					revenue = PurchaseBusiness.getCustomerRevenueByDate(textFieldID.getText(), startDate);
+				Customer customer = CustomerBusiness.SearchByBroncoId(textFieldID.getText());
+				if (customer != null) {
+					if (tglbtnEnableDateRange.isSelected()) {
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+						LocalDate startDate = LocalDate.parse(textFieldDate.getText(), formatter);
+						revenue = PurchaseBusiness.getCustomerRevenueByDate(textFieldID.getText(), startDate);
+					}
+					else {
+						revenue = PurchaseBusiness.getCustomerRevenueByID(textFieldID.getText());
+					}
+					
+					JOptionPane.showMessageDialog(null, customer.getFn_ln() + "Has spent $" + revenue);
 				}
-				else {
-					revenue = PurchaseBusiness.getCustomerRevenueByID(textFieldID.getText());
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Customer not found ");
 				}
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -118,9 +126,6 @@ public class ReportsByCustomerView extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-			
-			JOptionPane.showMessageDialog(null, "Customer has spent " + revenue);
 		}
 		else if (event.getSource() == btnCancel) {
 			new AdminView();

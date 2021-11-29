@@ -36,40 +36,6 @@ public class ReportsByActivityView extends JFrame implements ActionListener
 	}
 	
 	private void initializeComponents() {
-		
-		List<String> activities = null;
-		try 
-		{
-			// need to make get all unique by activity name
-			activities = ActivityBusiness.getAllActivities();
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		revenue = 0;
-		// Remove for loop when complete with gui this was just proof of concept for retrieving from DB
-		for(String temp: activities)
-		{
-			List<Activity> activity_ids = null;
-			try {
-				activity_ids = ActivityBusiness.getActivityIds(temp);
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				revenue += ActivityPurchaseBusiness.RevenueReportByActivities(activity_ids);
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			// check activity purchase tables for all the activities that are checked then get the price by date of the purchase id
-		}
-		
 		getContentPane().setLayout(null);
 				
 		contentPane = new JPanel();
@@ -82,12 +48,15 @@ public class ReportsByActivityView extends JFrame implements ActionListener
 		
 		chckbxBasketball = new JCheckBox("Basketball");
 		chckbxBasketball.setBounds(12, 23, 129, 23);
+		chckbxBasketball.addActionListener(this);
 		
 		chckbxSoccer = new JCheckBox("Soccer");
 		chckbxSoccer.setBounds(12, 50, 129, 23);
+		chckbxSoccer.addActionListener(this);
 		
 		chckbxFootball = new JCheckBox("Football");
 		chckbxFootball.setBounds(12, 77, 129, 23);
+		chckbxFootball.addActionListener(this);
 		
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(311, 215, 117, 25);
@@ -119,6 +88,55 @@ public class ReportsByActivityView extends JFrame implements ActionListener
 	{
 		
 		if (event.getSource() == btnGenerateReport) {
+			List<String> activities = null;
+			try 
+			{
+				// need to make get all unique by activity name
+				activities = ActivityBusiness.getAllActivities();
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			revenue = 0;
+			// Remove for loop when complete with gui this was just proof of concept for retrieving from DB
+			for(String temp: activities)
+			{
+				List<Activity> activity_ids = null;
+				try {
+					activity_ids = ActivityBusiness.getActivityIds(temp);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (temp.equals("Basketball") && chckbxBasketball.isSelected()) {
+					try {
+						revenue += ActivityPurchaseBusiness.RevenueReportByActivities(activity_ids);
+					} catch (ClassNotFoundException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					// check activity purchase tables for all the activities that are checked then get the price by date of the purchase id
+				}
+				else if (temp.equals("Soccer") && chckbxSoccer.isSelected()) {
+					try {
+						revenue += ActivityPurchaseBusiness.RevenueReportByActivities(activity_ids);
+					} catch (ClassNotFoundException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					// check activity purchase tables for all the activities that are checked then get the price by date of the purchase id
+				}
+				else if (temp.equals("Football") && chckbxFootball.isSelected()) {
+					try {
+						revenue += ActivityPurchaseBusiness.RevenueReportByActivities(activity_ids);
+					} catch (ClassNotFoundException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					// check activity purchase tables for all the activities that are checked then get the price by date of the purchase id
+				}
+			}
 			JOptionPane.showMessageDialog(null, "Selected Recreational Activities have generated $" + revenue);
 		}
 		else if (event.getSource() == btnCancel) {
