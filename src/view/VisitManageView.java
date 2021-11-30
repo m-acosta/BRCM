@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.business.ActivityPurchaseBusiness;
+import model.business.CustomerBusiness;
 import model.business.PurchaseBusiness;
 import model.entities.Purchase;
 
@@ -98,8 +99,9 @@ public class VisitManageView extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent event) {
-		if (event.getSource() == btnDeleteCustomer) {
-			
+		if (event.getSource() == btnDeleteCustomer) 
+		{
+			CustomerBusiness.DeleteCustomer(textField.getText());
 			dispose();
 		}
 		else if (event.getSource() == btnBack) {

@@ -28,4 +28,10 @@ public class CustomerBusiness
 		CustomerDataAccess customerDa = new CustomerDataAccess();
 		customerDa.saveCustomer(customer);
 	}
+	
+	public static void DeleteCustomer(String bronco_id)
+	{
+		CustomerDataAccess customerDa = new CustomerDataAccess();
+		customerDa.deleteCustomer(bronco_id);
+	}
 }
