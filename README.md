@@ -30,5 +30,6 @@ Bronco Recreation Complex Management system by Team 03 for CS 5800. The aim is t
 
 # Seeding Data
 1. Go to the HibernateUtil.java file and update/verify lines 31 - 33 make sure your personal postgresql username, password, port number are the same and that the database names are matching.
-
-2.Run the Seed.java file as a java application 
+2. In the same Java file from step one switch from validate mode to create/drop mode (it's commented out)
+3. Run the Seed.java file as a java application
+4. In the HibernateUtil.java switch back to validate mode
