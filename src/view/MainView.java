@@ -10,6 +10,7 @@ import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener {
+	// test
 
 	private JPanel contentPane;
 	
