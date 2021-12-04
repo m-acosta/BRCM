@@ -26,6 +26,7 @@ import model.entities.Status;
 
 @SuppressWarnings("serial")
 public class RegistrationControl extends HttpServlet {
+	// Testing
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

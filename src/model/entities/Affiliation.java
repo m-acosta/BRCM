@@ -39,4 +39,9 @@ public class Affiliation {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
+
+	@Override
+	public String toString() {
+		return "Affiliation [title=" + title + ", discount=" + discount + "]";
+	}
 }

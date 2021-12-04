@@ -91,4 +91,10 @@ public class Customer {
 		this.bronco_id = bronco_id;
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [bronco_id=" + bronco_id + ", fn_ln=" + fn_ln + ", dob=" + dob + ", phone=" + phone
+				+ ", address=" + address + ", affiliation=" + affiliation + "]";
+	}
+
 }

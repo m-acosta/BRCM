@@ -59,5 +59,11 @@ public class Professor{
 		this.department = department;
 	}
 
+	@Override
+	public String toString() {
+		return "Professor [bronco_id=" + bronco_id + ", office=" + office + ", research=" + research + ", department="
+				+ department + "]";
+	}
+
 
 }
