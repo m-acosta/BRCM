@@ -17,18 +17,18 @@ class ActivityPurchaseBusinessTest {
 	void testRevenueReportByActivities() {
 		List<Activity> activityList = new ArrayList();
 		Activity tempActivity1 = new ActivityDataAccess().getActivityById(1);
-		Activity tempActivity2 = new ActivityDataAccess().getActivityById(2);
+		Activity tempActivity2 = new ActivityDataAccess().getActivityById(3);
 		activityList.add(tempActivity1);
 		activityList.add(tempActivity2);
 		
-		// Currently, there are three soccer, 3 * 12.5, one football, 1 * 11.5
-		// so 3 * 12.5 + 1 * 11.5 = 49
+		// Currently, there are three soccer, 3 * 12.5, one basketball, 5 * 10.5
+		// so 3 * 12.5 + 1 * 11.5 = 90
 		
 		double output;
 		
 		try {
 			output = ActivityPurchaseBusiness.RevenueReportByActivities(activityList);
-			assertEquals(49, output);
+			assertEquals(90, output);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
