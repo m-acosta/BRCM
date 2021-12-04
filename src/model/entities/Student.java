@@ -72,4 +72,10 @@ public class Student{
 		this.enter_date = enter_date;
 	}
 
+	@Override
+	public String toString() {
+		return "Student [bronco_id=" + bronco_id + ", minor=" + minor + ", major=" + major + ", grade_date="
+				+ grade_date + ", enter_date=" + enter_date + "]";
+	}
+
 }

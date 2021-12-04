@@ -76,4 +76,10 @@ public class Address
 	public void setState(String state) {
 		this.state = state;
 	}
+
+	@Override
+	public String toString() {
+		return "Address [street=" + street + ", number=" + number + ", zip_code=" + zip_code + ", city=" + city
+				+ ", state=" + state + "]";
+	}
 }

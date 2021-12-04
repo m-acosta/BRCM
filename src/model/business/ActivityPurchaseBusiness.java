@@ -21,7 +21,11 @@ public class ActivityPurchaseBusiness
 		{
 			ActivityPurchaseDataAccess actpurchDa = new ActivityPurchaseDataAccess();
 			List<ActivityPurchase> activity_purchases = actpurchDa.getActivityPurchaseByActivity(temp.getActivityId());
-			revenue_report = revenue_report + (activity_purchases.size() * temp.getPrice());
+			for(ActivityPurchase tempActivityPurchase : activity_purchases) {
+				double price = temp.getPrice()*tempActivityPurchase.getQuantity();
+				revenue_report = revenue_report + price;
+			}
+			//revenue_report = revenue_report + (activity_purchases.size() * temp.getPrice());
 		}
 		
 		return revenue_report;

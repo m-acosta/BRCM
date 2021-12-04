@@ -27,9 +27,9 @@ public class HibernateUtil {
 			try {
 				Properties settings = new Properties();
 				settings.put(Environment.DRIVER, "org.postgresql.Driver");
-				settings.put(Environment.URL, "jdbc:postgresql://localhost:5433/brcm_database");
+				settings.put(Environment.URL, "jdbc:postgresql://localhost:5432/brcm_database");
 				settings.put(Environment.USER, "postgres");
-				settings.put(Environment.PASS, "password");
+				settings.put(Environment.PASS, "root");
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
 				settings.put(Environment.SHOW_SQL, "true");
 				settings.put(Environment.USE_SQL_COMMENTS, "true"); // Comment out for production
