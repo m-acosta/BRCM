@@ -256,8 +256,8 @@ public class RegistrationActivityView extends JFrame implements ActionListener {
 			Status status = new Status("Counter");
 			Time time = new Time(System.currentTimeMillis());
 			LocalDate local_date = LocalDate.now();
-			
-			this.purchase = new Purchase(time, local_date, total_price, status, customer);
+			double discountedPrice = total_price - Math.round(total_price*customer.getAffiliation().getDiscount());
+			this.purchase = new Purchase(time, local_date, discountedPrice, status, customer);
 			PurchaseBusiness.CreatePurchase(purchase);
 			
 			// for loop to go through all selected activities

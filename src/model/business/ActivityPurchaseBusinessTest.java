@@ -21,14 +21,28 @@ class ActivityPurchaseBusinessTest {
 		activityList.add(tempActivity1);
 		activityList.add(tempActivity2);
 		
-		// Currently, there are three soccer, 3 * 12.5, one basketball, 5 * 10.5
-		// so 3 * 12.5 + 1 * 11.5 = 90
+		// Currently, there are two basketball, 
+		// one basket ball is purchase by a student with id "00"
+		// so price is round (10.5-0.85*10.5) = 8.5
+		
+		
+		// one basket ball is purchase by a professor with id "01"
+		// so price is round (10.5-0.8*10.5) = 8.5
+		
+		// there are two soccer activities, 
+		// one soccer is purchase by a student with id "00"
+		// so price is round (12.5-round(0.85*12.5)) = 9.5
+		
+		
+		// one soccer is purchase by a professor with id "01"
+		// so price is round (12.5-round(0.8*12.5)) = 10.5
+		//Total revenue should be 8.5+8.5+9.5+10.5 = 37
 		
 		double output;
 		
 		try {
 			output = ActivityPurchaseBusiness.RevenueReportByActivities(activityList);
-			assertEquals(90, output);
+			assertEquals(37, output);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
