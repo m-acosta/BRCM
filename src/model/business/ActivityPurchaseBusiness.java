@@ -7,6 +7,7 @@ import model.dataccess.ActivityPurchaseDataAccess;
 import model.entities.Activity;
 import model.entities.ActivityPurchase;
 import model.entities.MessageException;
+import model.entities.Purchase;
 
 public class ActivityPurchaseBusiness 
 {
@@ -21,10 +22,19 @@ public class ActivityPurchaseBusiness
 		{
 			ActivityPurchaseDataAccess actpurchDa = new ActivityPurchaseDataAccess();
 			List<ActivityPurchase> activity_purchases = actpurchDa.getActivityPurchaseByActivity(temp.getActivityId());
-			for(ActivityPurchase tempActivityPurchase : activity_purchases) {
-				double price = temp.getPrice()*tempActivityPurchase.getQuantity();
-				revenue_report = revenue_report + price;
+			for (ActivityPurchase tempActivityPurchase : activity_purchases) {
+				Purchase purchase = tempActivityPurchase.getPurchase();
+				double Originalprice = temp.getPrice()*tempActivityPurchase.getQuantity();
+				double discount = purchase.getCustomer().getAffiliation().getDiscount();
+				
+				double DiscountedPrice = Originalprice - Math.round(discount* Originalprice);
+				//System.out.println("price: "+DiscountedPrice+" dicount: "+ discount);
+				revenue_report = revenue_report + DiscountedPrice;
 			}
+//			for(ActivityPurchase tempActivityPurchase : activity_purchases) {
+//				double price = temp.getPrice()*tempActivityPurchase.getQuantity();
+//				revenue_report = revenue_report + price;
+//			}
 			//revenue_report = revenue_report + (activity_purchases.size() * temp.getPrice());
 		}
 		
